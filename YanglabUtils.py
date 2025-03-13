@@ -1,21 +1,19 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-# Utilized for GDSFactory V9
-
 '''
 Author       : Qian Zhang
-Date         : 2025-01-02 15:27:02
+Date         : 2025-03-13 15:15:35
 LastEditors  : Qian Zhang
-LastEditTime : 2025-03-13 16:28:21
+LastEditTime : 2025-03-13 17:52:17
 FilePath     : \YanglabPDK\YanglabUtils.py
 Description  : 
 
 Copyright (c) 2025 by Prof. Lan Yang Lab, All Rights Reserved. 
 '''
-import gdsfactory as gf
-from yanglab_pdk import YanglabLayerStack as LayerStack
 
+import gdsfactory as gf
+from YanglabPDK import YanglabLayerStack as LayerStack
 LAYER = LayerStack.LAYER
 
 # When there is a overlap between positive and negative resist, use this function to seperate them
