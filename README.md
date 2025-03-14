@@ -21,3 +21,6 @@ The YanglabPDK Require 9.1+
 - Create module_yanglabpdk.pth into env/Lib/site-packages
 - Add the parent of Cloned Dir into the file
 
+## How to add own components
+- Add components.py file into one folder in components
+- Add components to __all__ in that foler __init__.py

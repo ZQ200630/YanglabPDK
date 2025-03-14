@@ -1,8 +1,7 @@
 import gdsfactory as gf
-import yanglab_pdk.YanglabUtils as Utils
-import yanglab_pdk.YanglabSections as Sections
-from yanglab_pdk.components.taper import taper
-from yanglab_pdk.YanglabLayerStack import LAYER
+
+from YanglabPDK import YanglabUtils as Utils
+from YanglabPDK import YanglabSections as Sections
 
 @gf.cell
 def mmi2x2(width_taper=2, length_taper=20, length_mmi=125, width_mmi=15, gap_mmi=4, width=1, buffer=3):

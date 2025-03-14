@@ -4,16 +4,16 @@
 Author       : Qian Zhang
 Date         : 2024-10-31 12:05:15
 LastEditors  : Qian Zhang
-LastEditTime : 2024-11-01 14:17:30
-FilePath     : \PDK_Template\yanglab_pdk\YanglabLayerStack.py
+LastEditTime : 2025-03-13 18:07:45
+FilePath     : \YanglabPDK\YanglabLayerStack.py
 Description  : 
 
 Copyright (c) 2024 by Prof. Lan Yang Lab, All Rights Reserved. 
 '''
 
 from functools import partial
-
 import gdsfactory as gf
+from gdsfactory.typings import Layer
 from gdsfactory.technology import (
     LayerLevel,
     LayerStack,
@@ -21,11 +21,6 @@ from gdsfactory.technology import (
     LayerViews,
     LayerMap,
 )
-from gdsfactory.typings import Layer
-
-gf.config.rich_output()
-
-nm = 1e-3
 
 class YanglabLayerMap(LayerMap):
     # Field Layer
@@ -66,5 +61,3 @@ class YanglabLayerMap(LayerMap):
     ALL: Layer = (255, 0)
     # Keep Out Layer
     KO: Layer = (121, 0)
-
-LAYER = YanglabLayerMap()
