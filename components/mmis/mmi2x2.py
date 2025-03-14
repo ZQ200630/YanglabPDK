@@ -25,28 +25,46 @@ def mmi2x2(width_taper=2, length_taper=20, length_mmi=125, width_mmi=15, gap_mmi
     x = Sections.pos_neg_resist(width=width, buffer=buffer)
     width = width or x.width
 
-    _taper = taper(
-        length=length_taper,
-        width1=width,
-        width2=w_taper,
-        buffer=buffer
-    )
-
     delta_width = width_mmi - width
     y = width_mmi / 2
     pos_box = c.add_polygon([(-buffer, -y-buffer), (length_mmi+buffer, -y-buffer), (length_mmi+buffer, y+buffer), (-buffer, y+buffer)], layer=LAYER.PR)
     neg_box = c.add_polygon([(0, -y), (length_mmi, -y), (length_mmi, y), (0, y)], layer=LAYER.NR)
     pos_box.center = (0, 0)
     neg_box.center = (0, 0)
-    left_top_taper = c << _taper
-    left_bot_taper = c << _taper
-    right_top_taper = c << _taper
-    right_bot_taper = c << _taper
+
+    left_top_taper = c << taper(
+        length=length_taper,
+        width1=width,
+        width2=w_taper,
+        buffer=buffer
+    )
+    left_bot_taper = c << taper(
+        length=length_taper,
+        width1=width,
+        width2=w_taper,
+        buffer=buffer
+    )
+    right_top_taper = c << taper(
+        length=length_taper,
+        width1=width,
+        width2=w_taper,
+        buffer=buffer
+    )
+
+    right_bot_taper = c << taper(
+        length=length_taper,
+        width1=width,
+        width2=w_taper,
+        buffer=buffer
+    )
+
+    right_bot_taper.rotate(180)
+    right_top_taper.rotate(180)
     
-    left_top_taper.xmax = neg_box
-    left_bot_taper.xmax = neg_box.xmin
-    right_top_taper.xmin = neg_box.xmax
-    right_bot_taper.xmin = neg_box.xmax
+    left_top_taper.xmax = neg_box.dpolygon.bbox().p1.x
+    left_bot_taper.xmax = neg_box.dpolygon.bbox().p1.x
+    right_top_taper.xmin = neg_box.dpolygon.bbox().p2.x
+    right_bot_taper.xmin = neg_box.dpolygon.bbox().p2.x
     left_top_taper.y = gap_mmi / 2
     left_bot_taper.y = -gap_mmi / 2
     right_top_taper.y = gap_mmi / 2
@@ -61,6 +79,6 @@ def mmi2x2(width_taper=2, length_taper=20, length_mmi=125, width_mmi=15, gap_mmi
 
 
 if __name__ == "__main__":
-    c = mmi2x2(width_taper=0.5, length_taper=20, length_mmi=125, width_mmi=15, gap_mmi=4, width=1)
+    c = mmi2x2(width_taper=2, length_taper=20, length_mmi=125, width_mmi=15, gap_mmi=4, width=1)
     c.draw_ports()
     c.show()

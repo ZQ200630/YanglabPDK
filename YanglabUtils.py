@@ -26,7 +26,8 @@ def pos_neg_seperate(comp):
     tmp1 = gf.Component()
     ps = tmp1.add_ref(ps_layer)
     pn = tmp1.add_ref(ng_layer)
-    ps = gf.boolean(A=ps, B=pn, operation='A-B', layer=LAYER.PR)
+    ps = gf.boolean(A=ps, B=pn, operation='A-B', layer=LAYER.PR, layer1=LAYER.PR, layer2=LAYER.NR)
+
     ps.name = "ps" + ps.name[7:]
     c = gf.Component(name="coupler_symmetric")
     c.add_ref(ps)
