@@ -1,3 +1,15 @@
+#!/usr/bin/env python
+# coding=utf-8
+'''
+Author       : Qian Zhang
+Date         : 2025-03-14 00:59:59
+LastEditors  : Qian Zhang
+LastEditTime : 2025-03-14 10:26:40
+FilePath     : \YanglabPDK\components\tapers\taper.py
+Description  : 
+
+Copyright (c) 2025 by Prof. Lan Yang Lab, All Rights Reserved. 
+'''
 import gdsfactory as gf
 
 from YanglabPDK import YanglabUtils as Utils
@@ -15,20 +27,12 @@ def taper(length=10.0, width1=1, width2=1, buffer=3) -> gf.Component:
         width2: width of the east/right port. Defaults to width1.
         buffer: buffer width for positive tone resist (um)
     """
-    port_names=['o1', 'o2']
-    port_types=['optical', 'optical']
-    with_two_ports=True
-    c = gf.Component()
-    if (width1 <= width2):
-        c = gf.components.taper(length=length, width1=width1, width2=width2, with_two_ports=with_two_ports, port_names=port_names, port_types=port_types, cross_section=Sections.pos_neg_resist(width=width1, buffer=buffer))
-    else:
-        port_names.reverse()
-        c = gf.components.taper(length=length, width1=width2, width2=width1, with_two_ports=with_two_ports, port_names=port_names, port_types=port_types, cross_section=Sections.pos_neg_resist(width=width2, buffer=buffer))
-        c.locked = False
-        c = c.rotate(180)
-        c.show()
-    return Utils.pos_neg_seperate(c)
+    Xtrans = gf.path.transition(cross_section1=Sections.pos_neg_resist(width=width1, buffer=buffer), cross_section2=Sections.pos_neg_resist(width=width2, buffer=buffer), width_type='linear', offset_type='linear')
+    path = gf.path.straight(length=length, npoints=1000)
+    taper_transition = gf.path.extrude_transition(path, Xtrans)
+    return Utils.pos_neg_seperate(taper_transition)
 
 if __name__ == "__main__":
-    c = taper(length=100, width1=5, width2=2)
-    # c.show()
+    c =taper(length=10, width1=0.5, width2=10)
+    c.draw_ports()
+    c.show()

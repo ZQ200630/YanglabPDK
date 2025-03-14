@@ -1,7 +1,21 @@
+#!/usr/bin/env python
+# coding=utf-8
+'''
+Author       : Qian Zhang
+Date         : 2025-03-14 00:58:39
+LastEditors  : Qian Zhang
+LastEditTime : 2025-03-14 11:01:04
+FilePath     : \YanglabPDK\components\mmis\mmi2x2.py
+Description  : 
+
+Copyright (c) 2025 by Prof. Lan Yang Lab, All Rights Reserved. 
+'''
 import gdsfactory as gf
 
 from YanglabPDK import YanglabUtils as Utils
 from YanglabPDK import YanglabSections as Sections
+from YanglabPDK import LAYER
+from YanglabPDK.components.tapers.taper import taper
 
 @gf.cell
 def mmi2x2(width_taper=2, length_taper=20, length_mmi=125, width_mmi=15, gap_mmi=4, width=1, buffer=3):
@@ -28,9 +42,8 @@ def mmi2x2(width_taper=2, length_taper=20, length_mmi=125, width_mmi=15, gap_mmi
     left_bot_taper = c << _taper
     right_top_taper = c << _taper
     right_bot_taper = c << _taper
-    right_bot_taper.mirror()
-    right_top_taper.mirror()
-    left_top_taper.xmax = neg_box.xmin
+    
+    left_top_taper.xmax = neg_box
     left_bot_taper.xmax = neg_box.xmin
     right_top_taper.xmin = neg_box.xmax
     right_bot_taper.xmin = neg_box.xmax
@@ -45,3 +58,9 @@ def mmi2x2(width_taper=2, length_taper=20, length_mmi=125, width_mmi=15, gap_mmi
     c.add_port(name="o3", port=right_top_taper.ports["o1"])
     c.add_port(name="o4", port=right_bot_taper.ports["o1"])
     return Utils.pos_neg_seperate(c)
+
+
+if __name__ == "__main__":
+    c = mmi2x2(width_taper=0.5, length_taper=20, length_mmi=125, width_mmi=15, gap_mmi=4, width=1)
+    c.draw_ports()
+    c.show()
