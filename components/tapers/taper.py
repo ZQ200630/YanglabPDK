@@ -18,7 +18,12 @@ from YanglabPDK import YanglabSections as Sections
 #TODO: Taper function has some problems, need to be fixed
 
 @gf.cell
-def taper(length=10.0, width1=1, width2=1, buffer=3) -> gf.Component:
+def taper(
+    length: float = 10.0, 
+    width1: float = 1, 
+    width2: float = 1, 
+    buffer: float = 3
+) -> gf.Component:
     """Linear taper, which tapers only the main cross section section.
 
     Args:
@@ -33,6 +38,6 @@ def taper(length=10.0, width1=1, width2=1, buffer=3) -> gf.Component:
     return Utils.pos_neg_seperate(taper_transition)
 
 if __name__ == "__main__":
-    c =taper(length=10, width1=0.5, width2=10)
+    c = taper(length=10, width1=0.5, width2=10)
     c.draw_ports()
     c.show()

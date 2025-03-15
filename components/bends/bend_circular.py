@@ -4,7 +4,12 @@ from YanglabPDK import YanglabUtils as Utils
 from YanglabPDK import YanglabSections as Sections
 
 @gf.cell
-def bend_circular(radius=100, angle=90, width=1, buffer=3) -> gf.Component:
+def bend_circular(
+    radius: float = 100, 
+    angle: float = 90, 
+    width: float = 1, 
+    buffer: float = 3
+) -> gf.Component:
     """Returns a radial arc.
 
     Args:

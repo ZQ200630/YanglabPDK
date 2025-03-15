@@ -15,11 +15,14 @@ from YanglabPDK.components.couplers.coupler_bent import (
     bend_coupler
 )
 
-from YanglabPDK.components.couplers.coupler_taper_adiabatic import (
-    taper_adiabatic_coupler
+from YanglabPDK.components.couplers.coupler import (
+    coupler,
+    coupler_straight,
 )
+
 
 __all__ = [
     "bend_coupler",
-    "taper_adiabatic_coupler"
+    "coupler",
+    "coupler_straight",
 ]

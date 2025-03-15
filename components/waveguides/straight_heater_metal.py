@@ -6,7 +6,19 @@ from YanglabPDK import YanglabSections as Sections
 from YanglabPDK import LAYER as LAYER
 
 @gf.cell
-def straight_heater_metal_undercut(length=320.0, length_undercut_spacing=6, length_undercut=30.0, length_straight_input=15, with_undercut=True, heater_taper_length=5.0, heater_width=2, undercut_width=3, undercut_gap=3, width=1, buffer=3) -> gf.Component:
+def straight_heater_metal_undercut(
+    length: float = 320.0, 
+    length_undercut_spacing: float = 6, 
+    length_undercut: float = 30.0, 
+    length_straight_input: float = 15, 
+    with_undercut: bool = True, 
+    heater_taper_length: float = 5.0, 
+    heater_width: float = 2, 
+    undercut_width: float = 3, 
+    undercut_gap: float = 3, 
+    width: float = 1, 
+    buffer: float = 3
+) -> gf.Component:
     """Returns a thermal phase shifter.
 
     dimensions from https://doi.org/10.1364/OE.27.010456

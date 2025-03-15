@@ -3,8 +3,18 @@ import gdsfactory as gf
 from YanglabPDK import YanglabUtils as Utils
 from YanglabPDK import YanglabSections as Sections
 
+from gdsfactory.typings import Coordinates
+
 @gf.cell
-def bend_bezier(control_points=[[0.0, 0.0], [5.0, 0.0], [50, 5], [100.0, 20]], npoints=201, with_manhattan_facing_angles=True, start_angle=0, end_angle=0, width=1, buffer=3) -> gf.Component:
+def bend_bezier(
+    control_points:Coordinates = [[0.0, 0.0], [5.0, 0.0], [50, 5], [100.0, 20]], 
+    npoints:int = 201, 
+    with_manhattan_facing_angles=True, 
+    start_angle:int | None = None, 
+    end_angle:int | None = None,
+    width: float = 1, 
+    buffer: float = 3
+) -> gf.Component:
     """Returns Bezier bend.
 
     Args:

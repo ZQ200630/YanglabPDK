@@ -9,9 +9,9 @@ def bend_coupler(
     radius: float = 100,
     coupler_gap: float = 0.2,
     coupling_angle_coverage: float = 120.0,
-    width_inner = 1,
-    width_outer = 1,
-    buffer = 3
+    width_inner: float = 1,
+    width_outer: float = 1,
+    buffer: float = 3
 ) -> gf.Component:
     r"""Compact curved coupler with bezier escape.
 
@@ -60,7 +60,6 @@ def bend_coupler(
 
     pbw = bend_inner_ref.ports["o1"]
     bend_inner_ref.movey(pbw.center[1] + spacing)
-
 
     c.add_port("o1", port=bend_outer_ref.ports["o1"])
     c.add_port("o2", port=bend_inner_ref.ports["o1"])

@@ -3,8 +3,14 @@ import gdsfactory as gf
 from YanglabPDK import YanglabUtils as Utils
 from YanglabPDK import YanglabSections as Sections
 
+from gdsfactory.typings import Size
+
 @gf.cell
-def bend_s(size=[10, 10], width=1, buffer=3) -> gf.Component:
+def bend_s(
+    size: Size = [10, 10], 
+    width: float = 1, 
+    buffer: float = 3
+) -> gf.Component:
     """Return S bend with bezier curve.
 
     stores min_bend_radius property in self.info['min_bend_radius']

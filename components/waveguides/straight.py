@@ -4,7 +4,11 @@ from YanglabPDK import YanglabUtils as Utils
 from YanglabPDK import YanglabSections as Sections
 
 @gf.cell
-def straight(length=10, width=1, buffer=3) -> gf.Component:
+def straight(
+    length: float = 10, 
+    width: float = 1, 
+    buffer: float = 3
+) -> gf.Component:
     """Returns a Straight waveguide.
 
     Args:

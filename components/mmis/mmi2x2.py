@@ -18,7 +18,46 @@ from YanglabPDK import LAYER
 from YanglabPDK.components.tapers.taper import taper
 
 @gf.cell
-def mmi2x2(width_taper=2, length_taper=20, length_mmi=125, width_mmi=15, gap_mmi=4, width=1, buffer=3):
+def mmi2x2(
+    width: float = 1, 
+    width_taper: float = 2, 
+    length_taper: float = 20, 
+    length_mmi: float = 125, 
+    width_mmi: float = 15, 
+    gap_mmi: float = 4, 
+    buffer: float = 3
+) -> gf.Component:
+    """Mmi 2x2.
+
+    Args:
+        width: input and output straight width.
+        width_taper: interface between input straights and mmi region.
+        length_taper: into the mmi region.
+        length_mmi: in x direction.
+        width_mmi: in y direction.
+        gap_mmi: (width_taper + gap between tapered wg)/2.
+        buffer: buffer around the component.
+
+
+    .. code::
+
+                   length_mmi
+                    <------>
+                    ________
+                   |        |
+                __/          \__
+            o2  __            __  o3
+                  \          /_ _ _ _
+                  |         | _ _ _ _| gap_mmi
+                __/          \__
+            o1  __            __  o4
+                  \          /
+                   |________|
+
+                 <->
+            length_taper
+
+    """
     c = gf.Component()
     gap_mmi = gf.snap.snap_to_grid(gap_mmi, grid_factor=2)
     w_taper = width_taper

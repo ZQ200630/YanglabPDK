@@ -4,7 +4,13 @@ from YanglabPDK import YanglabUtils as Utils
 from YanglabPDK import YanglabSections as Sections
 
 @gf.cell
-def bend_euler(radius=100, angle=90, p=0.5, width=1, buffer=3) -> gf.Component:
+def bend_euler(
+    radius: float = 100, 
+    angle: float = 90, 
+    p: float = 0.5, 
+    width: float = 1, 
+    buffer: float = 3
+) -> gf.Component:
     """Regular degree euler bend.
 
     Args:
@@ -17,7 +23,13 @@ def bend_euler(radius=100, angle=90, p=0.5, width=1, buffer=3) -> gf.Component:
     return Utils.pos_neg_seperate(gf.components.bend_euler(radius=radius, angle=angle, with_arc_floorplan=False, p=p, cross_section=Sections.pos_neg_resist(width=width, buffer=buffer)))
 
 @gf.cell
-def bend_euler_s(radius=100, angle=30, p=0.5, width=1, buffer=3) -> gf.Component:
+def bend_euler_s(
+    radius: float = 100, 
+    angle: float = 30, 
+    p: float = 0.5, 
+    width: float = 1, 
+    buffer: float = 3
+) -> gf.Component:
     r"""Sbend made of 2 euler bends.
 
     Args:
