@@ -36,7 +36,7 @@ def coupler_bent(
         2____/ /
         1_____/
     """
-    c = gf.Component(name='bend_coupler')
+    c = gf.Component()
 
     angle_inner = 90
     angle_outer = coupling_angle_coverage / 2

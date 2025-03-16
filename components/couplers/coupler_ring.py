@@ -131,28 +131,30 @@ def coupler_halfring_pulley(
     c = gf.Component()
     gap = gf.snap.snap_to_grid(gap, grid_factor=2)
 
-    # define subcells
-    coupler90_component = coupler_bent(
+    # add references to subcells
+    cbl = c << coupler_bent(
         coupler_gap=gap,
         radius=radius,
         width_outer=width_wg,
         width_inner=width_bend,
         buffer=buffer,
         coupling_angle_coverage=covered_angle
-    )
-
-    coupler_straight_component = coupler_straight_asymmetric(
+    ).copy()
+    cbr = c << coupler_bent(
+        coupler_gap=gap,
+        radius=radius,
+        width_outer=width_wg,
+        width_inner=width_bend,
+        buffer=buffer,
+        coupling_angle_coverage=covered_angle
+    ).copy()
+    cs = c << coupler_straight_asymmetric(
         gap=gap,
         length=length_x,
         width_bot=width_wg,
         width_top=width_bend,
         buffer=buffer
     )
-
-    # add references to subcells
-    cbl = c << coupler90_component
-    cbr = c << coupler90_component
-    cs = c << coupler_straight_component
 
     # connect references
     cs.connect(port="o4", other=cbr.ports["o1"])

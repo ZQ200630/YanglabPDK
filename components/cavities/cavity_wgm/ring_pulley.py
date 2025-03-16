@@ -6,6 +6,8 @@ from YanglabPDK.components.bends.bend_circular import bend_circular
 from YanglabPDK.components.couplers.coupler_ring import coupler_halfring_pulley
 from YanglabPDK.components.waveguides.straight import straight
 
+from functools import partial
+
 @gf.cell
 def ring_single_pulley(
     radius: float = 100,
@@ -43,8 +45,8 @@ def ring_single_pulley(
         radius=radius,
         covered_angle=coupling_angle_coverage,
         length_x=length_x,
-        width_wg=width_inner,
-        width_bend=width_outer,
+        width_wg=width_outer,
+        width_bend=width_inner,
         buffer=buffer,
         length_extension_left=length_extension_left,
         length_extension_right=length_extension_right
@@ -71,8 +73,8 @@ def ring_single_pulley(
     c.add_port("o1", port=cb.ports["o1"])
     return Utils.pos_neg_seperate(c)
 
-ring_pulley = ring_single_pulley(length_x=0, length_y=0)
+ring_pulley_circle = partial(ring_single_pulley, length_x=0, length_y=0)
 
 if __name__ == "__main__":
-    c = ring_pulley(radius=100, length_x=50, length_y=50)
+    c = ring_pulley_circle(radius=100, length_x=50, length_y=50)
     c.show()
