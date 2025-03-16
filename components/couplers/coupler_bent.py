@@ -5,7 +5,7 @@ from YanglabPDK.components.bends.bend_circular import bend_circular
 from YanglabPDK.components.bends.bend_euler import bend_euler
 
 @gf.cell
-def bend_coupler(
+def coupler_bent(
     radius: float = 100,
     coupler_gap: float = 0.2,
     coupling_angle_coverage: float = 120.0,
@@ -70,6 +70,6 @@ def bend_coupler(
     return Utils.pos_neg_seperate(c)
 
 if __name__ == "__main__":
-    c = bend_coupler()
+    c = coupler_bent()
     c.draw_ports()
     c.show()

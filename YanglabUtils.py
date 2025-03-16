@@ -20,6 +20,8 @@ def pos_neg_seperate(comp):
     comp = comp.copy()
     ps_layer = comp.extract(layers=(LAYER.PR,))
     ng_layer = comp.extract(layers=(LAYER.NR,))
+    comp.locked = False
+    comp.flatten()
     rest_layer = comp.remove_layers(layers=(LAYER.PR, LAYER.NR))
     # ng_layer name not start from unnamed, start as ng
     ng_layer.name = "ng" + ng_layer.name[7:]
@@ -52,10 +54,11 @@ def remap_layers(comp, old_layer, new_layer):
     all_comp.add_ref(a1)
     all_comp.add_ref(comp2)
     # All the ports should be transfer to the new layer, change the layer property of the ports
-    all_comp.ports = comp.ports
-    for port in all_comp.ports.values():
+    for port in comp.ports:
         if port.layer == old_layer:
-            port.layer = new_layer
+            all_comp.add_port(name=port.name, port=port, layer=new_layer)
+        else:
+            all_comp.add_port(name=port.name, port=port)
     return all_comp
 
 # Layer1 - Layer2, reserve substracted layer1 and layer2

@@ -19,7 +19,8 @@ def bend_circular(
         buffer: buffer width for positive tone resist (um)
     """
     c = Utils.pos_neg_seperate(gf.components.bend_circular(radius=radius, angle=angle, cross_section=Sections.pos_neg_resist(width=width, buffer=buffer)))
-    # print(c.ports)
+    c.locked = False
+    c.flatten()
     return c
 
 if __name__ == "__main__":
