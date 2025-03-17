@@ -47,7 +47,7 @@ def die_marker_field(field_size=1000, die_size=(10000, 10000), mark_pair_num=3, 
     right_top.center = (die_size[0]/2+field_size-20, die_size[1]/2+field_size-20)
     right_bot.center = (die_size[0]/2+field_size-20, -die_size[1]/2-field_size+20)
 
-    c = gf.Component()
+    c = gf.Component("Mark_Field")
     # d = c << die
     f = c << field
     m = c << marker
@@ -71,6 +71,7 @@ def die_marker_field(field_size=1000, die_size=(10000, 10000), mark_pair_num=3, 
     f.center = (0, 0)
     m.center = (0, 0)
     a.center = (0, 0)
+    # c.flatten()
     return c
 
 if __name__ == "__main__":
