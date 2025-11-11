@@ -74,6 +74,51 @@ def die_marker_field(field_size=1000, die_size=(10000, 10000), mark_pair_num=3, 
     # c.flatten()
     return c
 
+@gf.cell
+def dicing_lane(size=(6500, 14000), orientation='X') -> gf.Component:
+    """
+    Returns a dicing lane component with four rectangles on the edges of the die.
+    
+    Args:
+        size (tuple): Size of the die (width, height) in microns.
+    
+    The function places four rectangles (dicing marks) on the left, right, top, and bottom edges
+    of the die area, using the CUT layer defined in LAYER.CUT. These marks are typically used
+    to guide wafer dicing after fabrication.
+    """
+    if orientation not in ['X', 'Y']:
+        raise ValueError("Orientation must be 'X' or 'Y'")
+    c = gf.Component()
+    if orientation == 'X':
+        rec1 = c << gf.components.rectangle(size=(10, 2000), layer=LAYER.CUT)
+        rec2 = c << gf.components.rectangle(size=(10, 2000), layer=LAYER.CUT)
+        rec3 = c << gf.components.rectangle(size=(10, 2000), layer=LAYER.CUT)
+        rec4 = c << gf.components.rectangle(size=(10, 2000), layer=LAYER.CUT)
+        rec1.xmin = -size[0]/2
+        rec1.ymax = size[1]/2
+        rec2.xmin = -size[0]/2
+        rec2.ymin = -size[1]/2
+        rec3.xmax = size[0]/2
+        rec3.ymax = size[1]/2
+        rec4.xmax = size[0]/2
+        rec4.ymin = -size[1]/2
+        c.flatten()
+    elif orientation == 'Y':
+        rec1 = c << gf.components.rectangle(size=(2000, 10), layer=LAYER.CUT)
+        rec2 = c << gf.components.rectangle(size=(2000, 10), layer=LAYER.CUT)
+        rec3 = c << gf.components.rectangle(size=(2000, 10), layer=LAYER.CUT)
+        rec4 = c << gf.components.rectangle(size=(2000, 10), layer=LAYER.CUT)
+        rec1.xmin = -size[0]/2
+        rec1.ymax = size[1]/2
+        rec2.xmax = size[0]/2
+        rec2.ymax = size[1]/2
+        rec3.xmin = -size[0]/2
+        rec3.ymin = -size[1]/2
+        rec4.xmax = size[0]/2
+        rec4.ymin = -size[1]/2
+        c.flatten()
+    return c
+
 if __name__ == "__main__":
     c = die_marker_field()
     c.show()

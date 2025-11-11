@@ -12,7 +12,8 @@ Copyright (c) 2025 by Prof. Lan Yang Lab, All Rights Reserved.
 '''
 
 from YanglabPDK.components.couplers.coupler_adiabatic import (
-    coupler_adiabatic,
+    coupler_adiabatic_full,
+    coupler_adiabatic_50,
 )
 
 from YanglabPDK.components.couplers.coupler_asymmetric import (

@@ -59,14 +59,15 @@ def six_parallel_rings_3_in_2(parameters):
 
 def four_parallel_rings_1_in_1(parameters):
     c = gf.Component()
-    ring1 = c << ring_with_wg_1_in_1(radius=parameters[0]['radius'], gap=parameters[0]['gap'], width_wg=parameters[0]['width_wg'], width_ring=parameters[0]['width_ring'],offset=4000, total_length=parameters[0]['total_length'])
-    ring2 = c << ring_with_wg_1_in_1(radius=parameters[1]['radius'], gap=parameters[1]['gap'], width_wg=parameters[1]['width_wg'], width_ring=parameters[1]['width_ring'], offset=5000, total_length=parameters[1]['total_length'])
-    ring3 = c << ring_with_wg_1_in_1(radius=parameters[2]['radius'], gap=parameters[2]['gap'], width_wg=parameters[2]['width_wg'], width_ring=parameters[2]['width_ring'], offset=6000, total_length=parameters[2]['total_length'])
-    ring4 = c << ring_with_wg_1_in_1(radius=parameters[3]['radius'], gap=parameters[3]['gap'], width_wg=parameters[3]['width_wg'], width_ring=parameters[3]['width_ring'], offset=7000, total_length=parameters[3]['total_length'])
+    ring1 = c << ring_with_wg_1_in_1(radius=parameters[0]['radius'], gap=parameters[0]['gap'], width_wg=parameters[0]['width_wg'], width_ring=parameters[0]['width_ring'],offset=(parameters[0]['total_length']-4000)/2, total_length=parameters[0]['total_length'])
+    ring2 = c << ring_with_wg_1_in_1(radius=parameters[1]['radius'], gap=parameters[1]['gap'], width_wg=parameters[1]['width_wg'], width_ring=parameters[1]['width_ring'], offset=(parameters[1]['total_length']-4000)/2+1000, total_length=parameters[1]['total_length'])
+    ring3 = c << ring_with_wg_1_in_1(radius=parameters[2]['radius'], gap=parameters[2]['gap'], width_wg=parameters[2]['width_wg'], width_ring=parameters[2]['width_ring'], offset=(parameters[2]['total_length']-4000)/2+2000, total_length=parameters[2]['total_length'])
+    ring4 = c << ring_with_wg_1_in_1(radius=parameters[3]['radius'], gap=parameters[3]['gap'], width_wg=parameters[3]['width_wg'], width_ring=parameters[3]['width_ring'], offset=(parameters[3]['total_length']-4000)/2+3000, total_length=parameters[3]['total_length'])
     ring1.center = (0, -150)
     ring2.center = (0, -50)
     ring3.center = (0, 50)
     ring4.center = (0, 150)
+    c.flatten()
     return c
 
 def three_parallel_rings_1_in_2(parameters):

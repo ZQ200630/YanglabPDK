@@ -31,13 +31,14 @@ def pos_neg_seperate(comp):
     ps = gf.boolean(A=ps, B=pn, operation='A-B', layer=LAYER.PR, layer1=LAYER.PR, layer2=LAYER.NR)
 
     ps.name = "ps" + ps.name[7:]
-    c = gf.Component(name="coupler_symmetric")
+    c = gf.Component()
     c.add_ref(ps)
     c.add_ref(ng_layer)
     c.add_ref(rest_layer)
     c.name = comp.name
     c.ports = comp.ports
     c.info = comp.info
+    c.flatten()
     return c
 
 # Used for transfer the layer from old_layer to new_layer
@@ -48,10 +49,11 @@ def remap_layers(comp, old_layer, new_layer):
     a1 = comp3.add_ref(comp1)
     a2 = comp3.add_ref(comp1)
     # Boolean operation
-    a1 = gf.boolean(A=a1, B=a2, operation='and', layer=new_layer)
+    aaa = gf.boolean(A=a1, B=a2, operation='and', layer=new_layer, layer1=old_layer, layer2=old_layer)
+    aaa.show()
     # Merge a1 and comp2
     all_comp = gf.Component()
-    all_comp.add_ref(a1)
+    all_comp.add_ref(aaa)
     all_comp.add_ref(comp2)
     # All the ports should be transfer to the new layer, change the layer property of the ports
     for port in comp.ports:

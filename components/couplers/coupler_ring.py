@@ -186,7 +186,7 @@ def coupler_halfring_pulley(
     return Utils.pos_neg_seperate(c)
 
 if __name__ == "__main__":
-    # c = coupler_halfring(radius=300, length_extension_left=500, length_extension_right=500)
-    c = coupler_halfring_pulley(radius=300, width_bend=2, length_extension_left=500, length_extension_right=500)
+    c = coupler_halfring(radius=300, length_extension_left=0, length_extension_right=0)
+    # c = coupler_halfring_pulley(radius=300, width_bend=2, length_extension_left=500, length_extension_right=500)
     c.draw_ports()
     c.show()

@@ -78,7 +78,7 @@ def ring_with_wg_3_in_2(
     if(radius > 105):
         raise ValueError('Too large radius')
     c = gf.Component()
-    ring = c << ring_circle(radius=radius, gap=gap, width_wg=width_wg, width_bend=width_ring, length_extension_left=radius, length_extension_right=radius)
+    ring = c << ring_circle(radius=radius, gap=gap, width_wg=width_wg, width_bend=width_ring, length_extension_left=0, length_extension_right=0)
     ring.mirror_y()
 
     # Waveguide with ring, should be 2x radius
@@ -172,11 +172,12 @@ def ring_with_wg_1_in_2(
     if(radius > 320):
         raise ValueError('Too large radius')
     c = gf.Component()
-    ring = c << ring_circle(radius=radius, gap=gap, width_wg=width_wg, width_bend=width_ring, length_extension_left=radius, length_extension_right=radius)
+    ring = c << ring_circle(radius=radius, gap=gap, width_wg=width_wg, width_bend=width_ring, length_extension_left=0, length_extension_right=0)
     ring.mirror_y()
 
     # Waveguide with ring, should be 2x radius
     ring_length = abs(ring.ports['o1'].x - ring.ports['o2'].x)
+    print(ring_length)
     # WG between ring and bend, 500 - radius + 500 - 1.5 radius, make the ring and bend in the center of field
     wg3_length = 1000 - 2.5*radius
     # WG between ring and left edge of field, 500 - radius + offset

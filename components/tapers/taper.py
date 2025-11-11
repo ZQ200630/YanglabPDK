@@ -44,6 +44,34 @@ def taper(
     taper_transition = gf.path.extrude_transition(path, Xtrans)
     return Utils.pos_neg_seperate(taper_transition)
 
+@gf.cell
+def taper_buffer(
+    length: float = 10.0, 
+    width1: float = 1, 
+    width2: float = 1, 
+    buffer1: float = 3,
+    buffer2: float = 3,
+    is_buffer_aligned: bool = False
+) -> gf.Component:
+    """Linear taper, which tapers only the main cross section section.
+
+    Args:
+        length: taper length.
+        width1: width of the west/left port.
+        width2: width of the east/right port. Defaults to width1.
+        buffer: buffer width for positive tone resist (um)
+    """
+    if is_buffer_aligned:
+        if width1 < width2:
+            Xtrans = gf.path.transition(cross_section1=Sections.pos_neg_resist(width=width1, buffer=buffer1+(width2 - width1)/2), cross_section2=Sections.pos_neg_resist(width=width2, buffer=buffer2), width_type='linear', offset_type='linear')
+        else:
+            Xtrans = gf.path.transition(cross_section1=Sections.pos_neg_resist(width=width1, buffer=buffer1), cross_section2=Sections.pos_neg_resist(width=width2, buffer=buffer2+(width1 - width2)/2), width_type='linear', offset_type='linear')
+    else:
+        Xtrans = gf.path.transition(cross_section1=Sections.pos_neg_resist(width=width1, buffer=buffer1), cross_section2=Sections.pos_neg_resist(width=width2, buffer=buffer2), width_type='linear', offset_type='linear')
+    path = gf.path.straight(length=length, npoints=1000)
+    taper_transition = gf.path.extrude_transition(path, Xtrans)
+    return Utils.pos_neg_seperate(taper_transition)
+
 if __name__ == "__main__":
     c = taper(length=10, width1=0.5, width2=10)
     c.draw_ports()

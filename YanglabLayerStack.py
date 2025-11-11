@@ -1,16 +1,5 @@
 #!/usr/bin/env python
 # coding=utf-8
-'''
-Author       : Qian Zhang
-Date         : 2024-10-31 12:05:15
-LastEditors  : Qian Zhang
-LastEditTime : 2025-03-13 18:07:45
-FilePath     : \YanglabPDK\YanglabLayerStack.py
-Description  : 
-
-Copyright (c) 2024 by Prof. Lan Yang Lab, All Rights Reserved. 
-'''
-
 from functools import partial
 import gdsfactory as gf
 from gdsfactory.typings import Layer
@@ -61,3 +50,9 @@ class YanglabLayerMap(LayerMap):
     ALL: Layer = (255, 0)
     # Keep Out Layer
     KO: Layer = (121, 0)
+    # Grid Layer
+    GRID: Layer = (122, 0)
+    # Grid Text Layer
+    GRID_TX: Layer = (123, 0)
+    # Litho Ruler Layer
+    RULER: Layer = (124, 0)
