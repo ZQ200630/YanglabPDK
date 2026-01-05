@@ -19,12 +19,12 @@ from YanglabPDK.components.bends.bend_s import bend_s
 
 def six_parallel_rings_2_in_1(parameters):
     c = gf.Component()
-    ring1 = c << ring_with_wg_2_in_1(radius=parameters[0]['radius'], gap=parameters[0]['gap'], width_wg=parameters[0]['width_wg'], width_ring=parameters[0]['width_ring'], offset=3000, total_length=parameters[0]['total_length'])
-    ring2 = c << ring_with_wg_2_in_1(radius=parameters[1]['radius'], gap=parameters[1]['gap'], width_wg=parameters[1]['width_wg'], width_ring=parameters[1]['width_ring'], offset=3500, total_length=parameters[1]['total_length'])
-    ring3 = c << ring_with_wg_2_in_1(radius=parameters[2]['radius'], gap=parameters[2]['gap'], width_wg=parameters[2]['width_wg'], width_ring=parameters[2]['width_ring'], offset=4000, total_length=parameters[2]['total_length'])
-    ring4 = c << ring_with_wg_2_in_1(radius=parameters[3]['radius'], gap=parameters[3]['gap'], width_wg=parameters[3]['width_wg'], width_ring=parameters[3]['width_ring'], offset=4500, total_length=parameters[3]['total_length'])
-    ring5 = c << ring_with_wg_2_in_1(radius=parameters[4]['radius'], gap=parameters[4]['gap'], width_wg=parameters[4]['width_wg'], width_ring=parameters[4]['width_ring'], offset=5000, total_length=parameters[4]['total_length'])
-    ring6 = c << ring_with_wg_2_in_1(radius=parameters[5]['radius'], gap=parameters[5]['gap'], width_wg=parameters[5]['width_wg'], width_ring=parameters[5]['width_ring'], offset=5500, total_length=parameters[5]['total_length'])
+    ring1 = c << ring_with_wg_2_in_1(radius=parameters[0]['radius'], gap=parameters[0]['gap'], width_wg=parameters[0]['width_wg'], width_ring=parameters[0]['width_ring'], offset=(parameters[0]['total_length']-3000)/2, total_length=parameters[0]['total_length'])
+    ring2 = c << ring_with_wg_2_in_1(radius=parameters[1]['radius'], gap=parameters[1]['gap'], width_wg=parameters[1]['width_wg'], width_ring=parameters[1]['width_ring'], offset=(parameters[1]['total_length']-3000)/2+500, total_length=parameters[1]['total_length'])
+    ring3 = c << ring_with_wg_2_in_1(radius=parameters[2]['radius'], gap=parameters[2]['gap'], width_wg=parameters[2]['width_wg'], width_ring=parameters[2]['width_ring'], offset=(parameters[2]['total_length']-3000)/2+1000, total_length=parameters[2]['total_length'])
+    ring4 = c << ring_with_wg_2_in_1(radius=parameters[3]['radius'], gap=parameters[3]['gap'], width_wg=parameters[3]['width_wg'], width_ring=parameters[3]['width_ring'], offset=(parameters[3]['total_length']-3000)/2+1500, total_length=parameters[3]['total_length'])
+    ring5 = c << ring_with_wg_2_in_1(radius=parameters[4]['radius'], gap=parameters[4]['gap'], width_wg=parameters[4]['width_wg'], width_ring=parameters[4]['width_ring'], offset=(parameters[4]['total_length']-3000)/2+2000, total_length=parameters[4]['total_length'])
+    ring6 = c << ring_with_wg_2_in_1(radius=parameters[5]['radius'], gap=parameters[5]['gap'], width_wg=parameters[5]['width_wg'], width_ring=parameters[5]['width_ring'], offset=(parameters[5]['total_length']-3000)/2+2500, total_length=parameters[5]['total_length'])
     ring1.center = (0, -250)
     ring2.center = (0, -150)
     ring3.center = (0, -50)

@@ -20,6 +20,7 @@ from YanglabPDK import YanglabSections as Sections
 
 
 gf.config.rich_output()
+# gf.CONF.logfilter.level = "CRITICAL"
 
 
 _all__ = [

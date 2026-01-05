@@ -50,7 +50,6 @@ def remap_layers(comp, old_layer, new_layer):
     a2 = comp3.add_ref(comp1)
     # Boolean operation
     aaa = gf.boolean(A=a1, B=a2, operation='and', layer=new_layer, layer1=old_layer, layer2=old_layer)
-    aaa.show()
     # Merge a1 and comp2
     all_comp = gf.Component()
     all_comp.add_ref(aaa)
