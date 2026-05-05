@@ -12,7 +12,7 @@ Copyright (c) 2026 by Prof. Lan Yang Lab, All Rights Reserved.
 '''
 from YanglabPDK import *
 import gdsfactory as gf
-from YanglabPDK.YanglabUtils import remap_layers, pos_neg_seperate
+from YanglabPDK.YanglabUtils import remap_layers, pos_neg_seperate, round_unit
 from YanglabPDK.components.waveguides.straight import straight  
 from YanglabPDK.components.bends import bend_circular, bend_s
 from YanglabPDK.components.tapers import taper
@@ -50,25 +50,27 @@ def calculate_arc_parameters(L_dist, L_total, theta_deg):
     theta = theta_deg
     theta_rad = np.deg2rad(theta)
 
-    R = (L_dist - (L_total * np.cos(theta_rad))) / (np.sin(theta_rad)-theta_rad*np.cos(theta_rad))
-    L1 = L_total - R * theta_rad
+    R = round_unit((L_dist - (L_total * np.cos(theta_rad))) / (np.sin(theta_rad)-theta_rad*np.cos(theta_rad)))
+    L1 = round_unit(L_total - R * theta_rad)
     return L1, R
 
 @gf.cell
 def awg():
     c = gf.Component()
     # Define some parameters, which can be changed
-    semi_circle_to_center_dist = 100
+    semi_circle_to_center_dist = 150
     lambda_0 = 1.064
     n_eff = 1.8
     order = 41
     delta_L = order * lambda_0 / n_eff
-    delta_L = 28.5726
+    delta_L = round_unit(28.5726)
     w_port = 0.8
     awg_wg_number = 41
     awg_out_number = 8
+    r_a = 100  # Inner radius of Rowland circle
     # Define the left semi-circle
-    semi_circle = c << semi_circle_with_port(radius=38.0692, port_number_out=awg_wg_number)
+    semi_circle = c << semi_circle_with_port(radius=r_a, port_number_out=awg_wg_number, port_gap_out=2)
+
     bend_left = c << bend_circular(radius=60, angle=-90, width=1)
     bend_left.connect(port="o1", other=semi_circle.ports[0])
     straight_left = c << straight(length=150, width=1)
@@ -92,6 +94,7 @@ def awg():
         L_dist = semi_circle_to_center_dist+first_port.center[0]-port.center[0]
         theta_deg = abs(port.orientation)
         wg_length, radius = calculate_arc_parameters(L_dist, L_total, theta_deg)
+        print(wg_length, radius)
         bend = c << bend_circular(radius=radius, angle=-port.orientation*2, width=w_port)
         straight_wg1 = c << straight(length=wg_length, width=w_port)
         straight_wg2 = c << straight(length=wg_length, width=w_port)
@@ -99,7 +102,7 @@ def awg():
         bend.connect(port="o1", other=straight_wg1.ports["o2"], allow_width_mismatch=True)
         straight_wg2.connect(port="o1", other=bend.ports["o2"], allow_width_mismatch=True)
 
-    semi_circle_out = c << rowland_circle_with_port(radius=38.0692, port_number_out=awg_wg_number, port_number_in=awg_out_number)
+    semi_circle_out = c << rowland_circle_with_port(radius=r_a, port_number_out=awg_wg_number, port_number_in=awg_out_number)
     
     semi_circle_out.connect(port="o1", other=bend_circ.ports[1])
     

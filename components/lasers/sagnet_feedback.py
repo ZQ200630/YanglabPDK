@@ -70,6 +70,52 @@ def sagnet_feedback(
     return c
 
 @gf.cell
+def sagnet_feedback_1(
+    # Loop parameters
+    radius_loop: float = 75,
+    length_loop: float = 250,
+
+    # Waveguide widths
+    width: float | None = 1,
+    wg_width: float = 0.8,
+    short_width: float = 0.8,
+    long_width: float = 2,
+
+    # Taper parameters
+    width_taper: float = 2.424,
+    length_taper: float = 30,
+
+    # MMI parameters
+    length_mmi: float = 30.424,
+    width_mmi: float = 6.024,
+    gap_mmi: float = 0.675,
+
+    # Sagnac loop/cavity parameters
+    radius: float = 99,
+    gap: float = 0.45,
+    racetrack_len: float = 190,
+
+    # Miscellaneous
+    buffer: float = 3.0,
+):
+    c = gf.Component()
+    add_drop = c << ring_assymmetry_add_drop(radius=radius, short_width=short_width, gap=gap, width=width, wg_width=wg_width, long_width=long_width, racetrack_len=racetrack_len, buffer=buffer)
+    loop = c << sagnac_loop(radius_loop=radius_loop, length_loop=length_loop, width=width, width_taper=width_taper, length_taper=length_taper, length_mmi=length_mmi, width_mmi=width_mmi, gap_mmi=gap_mmi, buffer=buffer)
+    # circle1 = c << bend_circular(radius=radius_loop, angle=180, width=width, buffer=buffer)
+    # circle1.connect("o1", add_drop.ports["o2"])
+    taper1 = c << taper(width1=width, width2=0.05, length=30)
+    taper1.connect("o1", add_drop.ports["o2"])
+    loop.connect("o1", add_drop.ports["o1"])
+    rec_terminal = gf.components.rectangle(size=(10, 2 * buffer + 0.05), layer=LAYER.PR).copy()
+    rec_terminal.add_port(name="o1", center=(0, (2 * buffer + 0.05)/2), width=0.05, orientation=180, layer=LAYER.NR)
+    term = c << rec_terminal
+    term.connect("o1", taper1.ports["o2"])
+    c.add_port(name="o1", port=add_drop.ports["o3"])
+    c.add_port(name="o2", port=add_drop.ports["o4"])
+    c.flatten()
+    return c
+
+@gf.cell
 def sagnet_feedback_with_curve(# Loop parameters
     radius_loop: float = 75,
     length_loop: float = 250,

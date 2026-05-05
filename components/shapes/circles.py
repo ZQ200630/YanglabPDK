@@ -13,9 +13,67 @@ Copyright (c) 2026 by Prof. Lan Yang Lab, All Rights Reserved.
 
 from YanglabPDK import *
 import gdsfactory as gf
-from YanglabPDK.YanglabUtils import remap_layers, pos_neg_seperate
+from YanglabPDK.YanglabUtils import remap_layers, pos_neg_seperate, round_unit
 from YanglabPDK.components.waveguides.straight import straight  
 import numpy as np
+
+@gf.cell
+def single_semi_circle(
+    radius: float = 50.0,
+    angle_resolution: float = 0.1,
+    layer: tuple = LAYER.NR,
+) -> gf.Component:
+    """Generate a semicircle geometry (0° to 180°).
+
+    Args:
+        radius: radius of the semicircle.
+        angle_resolution: number of degrees per point.
+        layer: layer.
+    """
+    if radius <= 0:
+        raise ValueError(f"radius={radius} must be > 0")
+
+    c = gf.Component()
+
+    num_points = int(np.round(180.0 / angle_resolution)) + 1
+    theta = np.deg2rad(np.linspace(0, 180, num_points, endpoint=True))
+
+    points = np.stack(
+        (radius * np.cos(theta), radius * np.sin(theta)),
+        axis=-1,
+    )
+    
+    c.add_polygon(points=points, layer=layer)
+    return c
+
+@gf.cell
+def quarter_circle(
+    radius: float = 50.0,
+    angle_resolution: float = 0.1,
+    layer: tuple = LAYER.NR,
+) -> gf.Component:
+    """Generate a quarter circle geometry (0° to 90°).
+
+    Args:
+        radius: radius of the quarter circle.
+        angle_resolution: number of degrees per point.
+        layer: layer.
+    """
+    if radius <= 0:
+        raise ValueError(f"radius={radius} must be > 0")
+
+    c = gf.Component()
+
+    num_points = int(np.round(90.0 / angle_resolution)) + 1
+    theta = np.deg2rad(np.linspace(0, 90, num_points, endpoint=True))
+
+    points = np.stack(
+        (radius * np.cos(theta), radius * np.sin(theta)),
+        axis=-1,
+    )
+    
+    c.add_polygon(points=points, layer=layer)
+    return c
 
 @gf.cell
 def semi_circle(
@@ -114,9 +172,9 @@ def semi_circle_with_port(
             # Even number of ports
             angle = 180 - (i - (port_number_out - 1) / 2) * theta_deg 
         angle_rad = np.deg2rad(angle)
-        y = -R * np.cos(angle_rad) * np.cos(np.deg2rad(theta_deg/2))
-        x = R * np.sin(angle_rad) * np.cos(np.deg2rad(theta_deg/2))
-        orientation = angle - 90
+        y = round_unit(-R * np.cos(angle_rad) * np.cos(np.deg2rad(theta_deg/2)))
+        x = round_unit(R * np.sin(angle_rad) * np.cos(np.deg2rad(theta_deg/2)))
+        orientation = round_unit(angle - 90)
         comp.add_port(
             name=f"o{i+1}",
             center=(x, y),

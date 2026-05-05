@@ -1,29 +1,27 @@
-#!/usr/bin/env python
-# coding=utf-8
-'''
-Author       : Qian Zhang
-Date         : 2025-03-13 15:15:35
-LastEditors  : Qian Zhang
-LastEditTime : 2025-03-13 18:13:49
-FilePath     : \YanglabPDK\__init__.py
-Description  : 
+"""YanglabPDK public package interface.
 
-Copyright (c) 2025 by Prof. Lan Yang Lab, All Rights Reserved. 
-'''
+This package provides lab-specific layer definitions, cross sections, utilities,
+and reusable photonic components on top of gdsfactory.  The top-level namespace
+keeps the most frequently used modules available as:
+
+- `YanglabPDK.LAYER`
+- `YanglabPDK.Utils`
+- `YanglabPDK.Sections`
+"""
 
 import gdsfactory as gf
 from YanglabPDK import YanglabLayerStack as LayerStack
+
 LAYER = LayerStack.YanglabLayerMap
 
 from YanglabPDK import YanglabUtils as Utils
 from YanglabPDK import YanglabSections as Sections
 
-
 gf.config.rich_output()
 # gf.CONF.logfilter.level = "CRITICAL"
 
 
-_all__ = [
+__all__ = [
     "LAYER",
     "Utils",
     "Sections",

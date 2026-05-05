@@ -7,7 +7,7 @@ from YanglabPDK.components.utils.mark import cross
 from functools import partial
 
 
-def die_marker_field(field_size=1000, die_size=(10000, 10000), mark_pair_num=3, calipers=None):
+def die_marker_field(field_size=1000, die_size=(10000, 10000), mark_pair_num=3, calipers=None, expose_marker_list=[]):
     LUT = {
         # Left Top, Left Bottom, Right Top, Right Bottom
         0: ((0, 0), (0, 0), (0, 0), (0, 0)),
@@ -36,6 +36,16 @@ def die_marker_field(field_size=1000, die_size=(10000, 10000), mark_pair_num=3, 
         left_bot.center = (-die_size[0]/2-field_size/2+LUT[i][1][0]*field_size, -die_size[1]/2-field_size/2+LUT[i][1][1]*field_size)
         right_top.center = (die_size[0]/2+field_size/2+LUT[i][2][0]*field_size, die_size[1]/2+field_size/2+LUT[i][2][1]*field_size)
         right_bot.center = (die_size[0]/2+field_size/2+LUT[i][3][0]*field_size, -die_size[1]/2-field_size/2+LUT[i][3][1]*field_size)
+        if i in expose_marker_list:
+            # Create a rectangle to expose the marker
+            expose_rect_left_top = marker << gf.components.rectangle(size=(210, 210), layer=LAYER.EX)
+            expose_rect_left_bot = marker << gf.components.rectangle(size=(210, 210), layer=LAYER.EX)
+            expose_rect_right_top = marker << gf.components.rectangle(size=(210, 210), layer=LAYER.EX)
+            expose_rect_right_bot = marker << gf.components.rectangle(size=(210, 210), layer=LAYER.EX)
+            expose_rect_left_top.center = left_top.center
+            expose_rect_left_bot.center = left_bot.center
+            expose_rect_right_top.center = right_top.center
+            expose_rect_right_bot.center = right_bot.center
     
     anchor = gf.Component()
     left_top = anchor << gf.components.rectangle(size=(40, 40), layer=LAYER.AC)

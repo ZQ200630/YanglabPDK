@@ -1,17 +1,24 @@
-#!/usr/bin/env python
-# coding=utf-8
-from functools import partial
-import gdsfactory as gf
+"""Layer definitions used across YanglabPDK.
+
+`YanglabLayerMap` is the canonical place for lab layer numbers.  Component
+generators should import `YanglabPDK.LAYER` and refer to these symbolic names
+instead of repeating raw `(layer, datatype)` tuples.
+"""
+
 from gdsfactory.typings import Layer
 from gdsfactory.technology import (
-    LayerLevel,
-    LayerStack,
-    LayerView,
-    LayerViews,
     LayerMap,
 )
 
+
 class YanglabLayerMap(LayerMap):
+    """Lab-specific GDS layer map.
+
+    The attribute names are short by design because they appear frequently in
+    layout scripts.  Keep new names stable once they are used in generated
+    masks or shared design files.
+    """
+
     # Field Layer
     FD: Layer = (0, 0)
     # Waveguide Layer
@@ -56,3 +63,5 @@ class YanglabLayerMap(LayerMap):
     GRID_TX: Layer = (123, 0)
     # Litho Ruler Layer
     RULER: Layer = (124, 0)
+    # Marker Expose Layer
+    EX: Layer = (125, 0)

@@ -1,22 +1,28 @@
-#!/usr/bin/env python
-# coding=utf-8
+"""Geometry utility functions for YanglabPDK components.
 
-# '''
-# Author       : Qian Zhang
-# Date         : 2025-03-13 15:15:35
-# LastEditors  : Qian Zhang
-# LastEditTime : 2025-03-13 18:12:18
-# FilePath     : \20250313_TESTc:\Users\Qian\OneDrive\GDS\WorkSpace\MY_GDS_PACKAGE_V3\YanglabPDK\YanglabUtils.py
-# Description  : 
-
-# Copyright (c) 2025 by Prof. Lan Yang Lab, All Rights Reserved. 
-# '''
+These helpers wrap common gdsfactory layer operations used by lab components.
+They are intentionally small and explicit because most of them are called just
+before returning a generated layout cell.
+"""
 
 import gdsfactory as gf
 from YanglabPDK import *
 
-# When there is a overlap between positive and negative resist, use this function to seperate them
+
 def pos_neg_seperate(comp):
+    """Separate overlapping positive and negative resist geometry.
+
+    The lab's resist convention often draws a negative-resist core together with
+    positive-resist side buffers.  When both layers overlap, this function keeps
+    the negative-resist geometry and subtracts it from the positive-resist layer.
+
+    Args:
+        comp: Component containing `LAYER.PR` and `LAYER.NR` geometry.
+
+    Returns:
+        A flattened copy of `comp` with positive resist minus negative resist,
+        plus the original negative resist and all remaining layers.
+    """
     comp = comp.copy()
     ps_layer = comp.extract(layers=(LAYER.PR,))
     ng_layer = comp.extract(layers=(LAYER.NR,))
@@ -41,8 +47,13 @@ def pos_neg_seperate(comp):
     c.flatten()
     return c
 
-# Used for transfer the layer from old_layer to new_layer
+
 def remap_layers(comp, old_layer, new_layer):
+    """Move all polygons on one layer to another layer.
+
+    Ports that were on `old_layer` are copied onto `new_layer`; other ports are
+    preserved unchanged.
+    """
     comp1 = comp.copy().extract(layers=(old_layer, ))
     comp2 = comp.copy().remove_layers(layers=(old_layer, ))
     comp3 = gf.Component()
@@ -62,8 +73,9 @@ def remap_layers(comp, old_layer, new_layer):
             all_comp.add_port(name=port.name, port=port)
     return all_comp
 
-# Layer1 - Layer2, reserve substracted layer1 and layer2
+
 def substract_layer(comp, layer1, layer2):
+    """Subtract `layer2` polygons from `layer1` while preserving other layers."""
     comp1 = comp.copy().extract(layers=(layer1, ))
     comp2 = comp.copy().extract(layers=(layer2, ))
     comp3 = comp.copy().remove_layers(layers=(layer1, ))
@@ -75,8 +87,9 @@ def substract_layer(comp, layer1, layer2):
     all_comp.ports = comp.ports
     return all_comp
 
-# Copy layer1 pattern to layer2, reserve layer1
+
 def copy_layer(comp, layer1, layer2):
+    """Copy polygons from `layer1` to `layer2` while keeping `layer1`."""
     comp1 = comp.copy().extract(layers=(layer1, ))
     comp1 = remap_layers(comp1, layer1, layer2)
     all_comp = gf.Component()
@@ -85,10 +98,22 @@ def copy_layer(comp, layer1, layer2):
     all_comp.ports = comp.ports
     return all_comp
 
-# Remove the layer from the component
+
 def remove_layer(comp, layer):
+    """Return a copy of `comp` without polygons on `layer`."""
     comp2 = comp.copy().remove_layers(layers=(layer, ))
     return comp2
 
+
+def round_unit(value, unit=0.001):
+    """Round a value to the nearest layout grid unit.
+
+    Args:
+        value: Numeric value in microns.
+        unit: Grid size in microns. Defaults to 1 nm.
+    """
+    return round(value / unit) * unit
+
 if __name__ == "__main__":
-    pass
+    rounded_value = round_unit(12.34567, unit=0.001)
+    print(f"Rounded Value: {rounded_value}")
