@@ -114,6 +114,31 @@ def my_component(length: float = 10.0) -> gf.Component:
     return c
 ```
 
+## Building API Documentation
+
+Install the documentation dependencies once:
+
+```powershell
+python -m pip install -r requirements-docs.txt
+```
+
+Then regenerate the component catalog and local HTML site with:
+
+```powershell
+python scripts/build_docs.py
+```
+
+The HTML entry point is written to:
+
+```text
+docs/_build/html/index.html
+```
+
+The component catalog is generated from the source tree and should not be edited
+by hand. Preview images are best-effort: components that cannot be imported or
+instantiated with default parameters are recorded in
+`docs/generated/component_report.md`.
+
 ## Current Notes
 
 - Generated layout files under `build/gds/` are outputs, not source files.

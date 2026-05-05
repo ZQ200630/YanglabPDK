@@ -15,6 +15,9 @@ def straight(
         length: straight length (um).
         width: width of the waveguide. 
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
     .. code::
         --------------------
         o1 -------------- o2

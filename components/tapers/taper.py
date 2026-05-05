@@ -33,6 +33,9 @@ def taper(
         width1: width of the west/left port.
         width2: width of the east/right port. Defaults to width1.
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
     """
     if is_buffer_aligned:
         if width1 < width2:
@@ -61,6 +64,9 @@ def taper_buffer(
         width1: width of the west/left port.
         width2: width of the east/right port. Defaults to width1.
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
     """
     if is_buffer_aligned:
         if width1 < width2:

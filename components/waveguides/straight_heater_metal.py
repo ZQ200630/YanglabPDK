@@ -35,6 +35,9 @@ def straight_heater_metal_undercut(
         undercut_gap: gap between the undercut and the waveguide.
         width: width of the waveguide.
         buffer: buffer width for positive tone resist.
+    
+    Returns:
+        Component with the generated layout.
     """
     cross_section = Sections.pos_neg_resist(width=1, buffer=buffer)
     cross_section_heater = partial(gf.cross_section.heater_metal, width=heater_width, layer=LAYER.MT2)

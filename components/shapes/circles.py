@@ -29,6 +29,9 @@ def single_semi_circle(
         radius: radius of the semicircle.
         angle_resolution: number of degrees per point.
         layer: layer.
+    
+    Returns:
+        Component with the generated layout.
     """
     if radius <= 0:
         raise ValueError(f"radius={radius} must be > 0")
@@ -58,6 +61,9 @@ def quarter_circle(
         radius: radius of the quarter circle.
         angle_resolution: number of degrees per point.
         layer: layer.
+    
+    Returns:
+        Component with the generated layout.
     """
     if radius <= 0:
         raise ValueError(f"radius={radius} must be > 0")
@@ -87,6 +93,9 @@ def semi_circle(
         radius: radius of the semicircle.
         angle_resolution: number of degrees per point.
         layer: layer.
+    
+    Returns:
+        Component with the generated layout.
     """
     if radius <= 0:
         raise ValueError(f"radius={radius} must be > 0")
@@ -133,6 +142,9 @@ def semi_circle_with_port(
         radius: radius of the semicircle.
         angle_resolution: number of degrees per point.
         layer: layer.
+    
+    Returns:
+        Component with the generated layout.
     """
     if radius <= 0:
         raise ValueError(f"radius={radius} must be > 0")
@@ -192,6 +204,14 @@ def semi_circle_with_port(
 def rotate_point(x, y, theta):
     """
     将点 (x, y) 绕原点逆时针旋转 theta（弧度）
+    
+    Args:
+        x: X coordinate.
+        y: Y coordinate.
+        theta: Rotation angle in radians.
+
+    Returns:
+        Rotated point coordinates.
     """
     R = np.array([
         [np.cos(theta), -np.sin(theta)],
@@ -221,6 +241,9 @@ def angled_arc_with_port(
         radius: radius of the semicircle.
         angle_resolution: number of degrees per point.
         layer: layer.
+    
+    Returns:
+        Component with the generated layout.
     """
     if radius <= 0:
         raise ValueError(f"radius={radius} must be > 0")
@@ -303,6 +326,9 @@ def rowland_circle_with_port(
         radius: radius of the semicircle.
         angle_resolution: number of degrees per point.
         layer: layer.
+    
+    Returns:
+        Component with the generated layout.
     """
     if radius <= 0:
         raise ValueError(f"radius={radius} must be > 0")

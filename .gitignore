@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+
+# Local documentation build outputs.
+docs/_build/
+docs/_static/component_previews/
+

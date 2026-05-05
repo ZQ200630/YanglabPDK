@@ -26,6 +26,9 @@ def ring_with_wg_2_in_1(
         width_ring: Ring width.
         offset: Offset from the left edge of the field.
         total_length: Total length of the component.
+    
+    Returns:
+        Component with the generated layout.
     """
     if(radius > 80):
         raise ValueError('Too large radius')
@@ -74,6 +77,9 @@ def ring_with_wg_3_in_2(
         width_ring: Ring width.
         offset: Offset from the left edge of the field.
         total_length: Total length of the component.
+    
+    Returns:
+        Component with the generated layout.
     """
     if(radius > 105):
         raise ValueError('Too large radius')
@@ -121,6 +127,9 @@ def ring_with_wg_1_in_1(
         width_ring: Ring width.
         offset: Offset from the left edge of the field.
         total_length: Total length of the component.
+    
+    Returns:
+        Component with the generated layout.
     """
     if(radius > 210):
         raise ValueError('Too large radius')
@@ -168,6 +177,9 @@ def ring_with_wg_1_in_2(
         width_ring: Ring width.
         offset: Offset from the left edge of the field.
         total_length: Total length of the component.
+    
+    Returns:
+        Component with the generated layout.
     """
     if(radius > 320):
         raise ValueError('Too large radius')
@@ -199,7 +211,22 @@ def ring_with_wg_1_in_2(
     return c
 
 
-def pulley_ring_with_wg_3_in_2(radius=105, gap=0.5, width_wg=1, width_ring=1, angle=20, offset=0, total_length=12000):
+@gf.cell
+def pulley_ring_with_wg_3_in_2(radius=80, gap=0.5, width_wg=1, width_ring=1, angle=20, offset=0, total_length=12000) -> gf.Component:
+    """Return a pulley ring with waveguides aligned for a 3-in-2 field array.
+
+    Args:
+        radius: Ring radius in microns.
+        gap: Gap between ring and bus waveguide in microns.
+        width_wg: Bus waveguide width in microns.
+        width_ring: Ring waveguide width in microns.
+        angle: Pulley coupling angle in degrees.
+        offset: Horizontal offset from the field edge in microns.
+        total_length: Total component length in microns.
+
+    Returns:
+        Component with the pulley ring and routed bus waveguide.
+    """
     if(radius > 105):
         raise ValueError('Too large radius')
     c = gf.Component()

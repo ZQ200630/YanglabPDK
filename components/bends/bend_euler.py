@@ -19,6 +19,9 @@ def bend_euler(
         p: Proportion of the curve that is an Euler curve.
         width: width to use. Defaults to cross_section.width.
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
     """
     return Utils.pos_neg_seperate(gf.components.bend_euler(radius=radius, angle=angle, with_arc_floorplan=False, p=p, cross_section=Sections.pos_neg_resist(width=width, buffer=buffer)))
 
@@ -38,6 +41,9 @@ def bend_euler_s(
         p: Proportion of the curve that is an Euler curve.
         width: width to use. Defaults to cross_section.width.
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
 
 
     .. code::

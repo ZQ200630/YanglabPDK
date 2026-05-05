@@ -21,6 +21,23 @@ def mzi_mmi(
     edge_length: float = 500,
     buffer: float = 3.0,
 ) -> gf.Component:
+    """Return an MZI built from two 1x2 MMI couplers.
+
+    Args:
+        width: Waveguide width in microns.
+        width_taper: MMI taper width in microns.
+        length_taper: MMI taper length in microns.
+        length_mmi: MMI body length in microns.
+        width_mmi: MMI body width in microns.
+        gap_mmi: Gap between MMI output waveguides in microns.
+        bend_angle: S-bend angle in degrees.
+        straight_length: Length of the two interferometer arms in microns.
+        edge_length: Length of the input and output access waveguides in microns.
+        buffer: Positive-resist buffer width in microns.
+
+    Returns:
+        Component with optical ports `o1` and `o2`.
+    """
     c = gf.Component()
     mmi_left = c << mmi1x2(width=width, width_taper=width_taper, length_taper=length_taper, length_mmi=length_mmi, width_mmi=width_mmi, gap_mmi=gap_mmi, buffer=buffer).copy()
     mmi_right = c << mmi1x2(width=width, width_taper=width_taper, length_taper=length_taper, length_mmi=length_mmi, width_mmi=width_mmi, gap_mmi=gap_mmi, buffer=buffer).copy()

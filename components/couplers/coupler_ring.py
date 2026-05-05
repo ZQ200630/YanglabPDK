@@ -33,6 +33,9 @@ def coupler_halfring(
         buffer: buffer width for positive tone resist (um)
         length_extension_left: left to extension comparing to center of the ring.
         length_extension_right: right to extension comparing to center of the ring.
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 
@@ -117,6 +120,9 @@ def coupler_halfring_pulley(
         buffer: buffer width for positive tone resist (um)
         length_extension_left: left to extension comparing to center of the ring.
         length_extension_right: right to extension comparing to center of the ring.
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 

@@ -41,6 +41,9 @@ def coupler_adiabatic_full(
         width: width of the waveguide. If None, it will use the width of the cross_section.
         buffer: buffer.
 
+    
+    Returns:
+        Component with the generated layout.
     """
     c = gf.Component()
 
@@ -134,6 +137,9 @@ def coupler_adiabatic_50(
         input_wg_sep: Separation between input waveguides, center-to-center (um).
         output_wg_sep: Separation between output waveguides, center-to-center (um).
         buffer: Buffer around the waveguides (um).
+    
+    Returns:
+        Component with the generated layout.
     """
     c = gf.Component()
 

@@ -18,6 +18,14 @@ from YanglabPDK.components.bends.bend_s import bend_s
 
 
 def six_parallel_rings_2_in_1(parameters):
+    """Create a six parallel rings 2 in 1 component.
+
+    Args:
+        parameters: List of ring parameter dictionaries. Each dictionary should include radius, gap, width_wg, width_ring, and total_length; pulley variants also use angle.
+
+    Returns:
+        Component with the generated layout.
+    """
     c = gf.Component()
     ring1 = c << ring_with_wg_2_in_1(radius=parameters[0]['radius'], gap=parameters[0]['gap'], width_wg=parameters[0]['width_wg'], width_ring=parameters[0]['width_ring'], offset=(parameters[0]['total_length']-3000)/2, total_length=parameters[0]['total_length'])
     ring2 = c << ring_with_wg_2_in_1(radius=parameters[1]['radius'], gap=parameters[1]['gap'], width_wg=parameters[1]['width_wg'], width_ring=parameters[1]['width_ring'], offset=(parameters[1]['total_length']-3000)/2+500, total_length=parameters[1]['total_length'])
@@ -34,6 +42,14 @@ def six_parallel_rings_2_in_1(parameters):
     return c
 
 def six_parallel_rings_3_in_2(parameters):
+    """Create a six parallel rings 3 in 2 component.
+
+    Args:
+        parameters: List of ring parameter dictionaries. Each dictionary should include radius, gap, width_wg, width_ring, and total_length; pulley variants also use angle.
+
+    Returns:
+        Component with the generated layout.
+    """
     # total_length for six parameters must be same
     for param in parameters:
         if param['total_length'] != parameters[0]['total_length']:
@@ -58,6 +74,14 @@ def six_parallel_rings_3_in_2(parameters):
     return c
 
 def four_parallel_rings_1_in_1(parameters):
+    """Create a four parallel rings 1 in 1 component.
+
+    Args:
+        parameters: List of ring parameter dictionaries. Each dictionary should include radius, gap, width_wg, width_ring, and total_length; pulley variants also use angle.
+
+    Returns:
+        Component with the generated layout.
+    """
     c = gf.Component()
     ring1 = c << ring_with_wg_1_in_1(radius=parameters[0]['radius'], gap=parameters[0]['gap'], width_wg=parameters[0]['width_wg'], width_ring=parameters[0]['width_ring'],offset=(parameters[0]['total_length']-4000)/2, total_length=parameters[0]['total_length'])
     ring2 = c << ring_with_wg_1_in_1(radius=parameters[1]['radius'], gap=parameters[1]['gap'], width_wg=parameters[1]['width_wg'], width_ring=parameters[1]['width_ring'], offset=(parameters[1]['total_length']-4000)/2+1000, total_length=parameters[1]['total_length'])
@@ -71,6 +95,14 @@ def four_parallel_rings_1_in_1(parameters):
     return c
 
 def three_parallel_rings_1_in_2(parameters):
+    """Create a three parallel rings 1 in 2 component.
+
+    Args:
+        parameters: List of ring parameter dictionaries. Each dictionary should include radius, gap, width_wg, width_ring, and total_length; pulley variants also use angle.
+
+    Returns:
+        Component with the generated layout.
+    """
     c = gf.Component()
     ring1 = c << ring_with_wg_1_in_2(radius=parameters[0]['radius'], gap=parameters[0]['gap'], width_wg=parameters[0]['width_wg'], width_ring=parameters[0]['width_ring'], offset=3000, total_length=parameters[0]['total_length'])
     ring2 = c << ring_with_wg_1_in_2(radius=parameters[1]['radius'], gap=parameters[1]['gap'], width_wg=parameters[1]['width_wg'], width_ring=parameters[1]['width_ring'], offset=5000, total_length=parameters[1]['total_length'])
@@ -81,6 +113,14 @@ def three_parallel_rings_1_in_2(parameters):
     return c
 
 def parallel_rings_with_parameters_l_80(parameters):
+    """Create a parallel rings with parameters l 80 component.
+
+    Args:
+        parameters: List of ring parameter dictionaries. Each dictionary should include radius, gap, width_wg, width_ring, and total_length; pulley variants also use angle.
+
+    Returns:
+        Component with the generated layout.
+    """
     if len(parameters) % 6 != 0:
         raise ValueError('The number of parameters must be multiple integer of 6')
     c = gf.Component()
@@ -93,6 +133,14 @@ def parallel_rings_with_parameters_l_80(parameters):
     return c
 
 def parallel_rings_with_parameters_80_105(parameters):
+    """Create a parallel rings with parameters 80 105 component.
+
+    Args:
+        parameters: List of ring parameter dictionaries. Each dictionary should include radius, gap, width_wg, width_ring, and total_length; pulley variants also use angle.
+
+    Returns:
+        Component with the generated layout.
+    """
     if len(parameters) % 6 != 0:
         raise ValueError('The number of parameters must be multiple integer of 6')
     c = gf.Component()
@@ -105,6 +153,14 @@ def parallel_rings_with_parameters_80_105(parameters):
     return c
 
 def parallel_rings_with_parameters_105_210(parameters):
+    """Create a parallel rings with parameters 105 210 component.
+
+    Args:
+        parameters: List of ring parameter dictionaries. Each dictionary should include radius, gap, width_wg, width_ring, and total_length; pulley variants also use angle.
+
+    Returns:
+        Component with the generated layout.
+    """
     if len(parameters) % 4 != 0:
         raise ValueError('The number of parameters must be multiple integer of 4')
     c = gf.Component()
@@ -117,6 +173,14 @@ def parallel_rings_with_parameters_105_210(parameters):
     return c
 
 def parallel_rings_with_parameters_210_320(parameters):
+    """Create a parallel rings with parameters 210 320 component.
+
+    Args:
+        parameters: List of ring parameter dictionaries. Each dictionary should include radius, gap, width_wg, width_ring, and total_length; pulley variants also use angle.
+
+    Returns:
+        Component with the generated layout.
+    """
     if len(parameters) % 3 != 0:
         raise ValueError('The number of parameters must be multiple integer of 3')
     c = gf.Component()
@@ -133,6 +197,9 @@ def parallel_rings_with_parameters_all_in_one(parameters):
 
     Args:
         parameters: list of parameters for each ring, need radius, gap, width_wg, width_ring, total_length
+    
+    Returns:
+        Component with the generated layout.
     """
     c = gf.Component()
     for param in parameters:
@@ -168,6 +235,15 @@ def parallel_rings_with_parameters_all_in_one(parameters):
     return c
 
 def pulley_six_parallel_rings_3_in_2(parameters, comments=None):
+    """Create a pulley six parallel rings 3 in 2 component.
+
+    Args:
+        parameters: List of ring parameter dictionaries. Each dictionary should include radius, gap, width_wg, width_ring, and total_length; pulley variants also use angle.
+        comments: Optional text label added to the layout.
+
+    Returns:
+        Component with the generated layout.
+    """
     # total_length for six parameters must be same
     for param in parameters:
         if param['total_length'] != parameters[0]['total_length']:

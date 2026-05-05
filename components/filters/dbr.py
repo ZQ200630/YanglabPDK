@@ -32,6 +32,9 @@ def dbr_cell(
         l2: thick length in um.
         n: number of periods.
         cross_section: cross_section spec.
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 
@@ -84,6 +87,9 @@ def dbr(
         n: number of periods.
         width: waveguide width in um.
         length: length of straight.
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 

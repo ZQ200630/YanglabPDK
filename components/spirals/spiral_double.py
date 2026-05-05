@@ -5,7 +5,7 @@ from YanglabPDK import YanglabSections as Sections
 
 @gf.cell
 def spiral_double(
-    min_bend_radius: float | None = None,
+    min_bend_radius: float = 10.0,
     separation: float = 2.0,
     number_of_loops: float = 3,
     npoints: int = 1000,
@@ -20,6 +20,9 @@ def spiral_double(
         npoints: points for the spiral.
         width: waveguide width in um.
         buffer: buffer.
+
+    Returns:
+        Component with the double spiral layout.
     """
     return Utils.pos_neg_seperate(gf.components.spiral_double(min_bend_radius=min_bend_radius, separation=separation, number_of_loops=number_of_loops, npoints=npoints, cross_section=Sections.pos_neg_resist(width=width, buffer=buffer)))
 

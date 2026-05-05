@@ -12,6 +12,18 @@ def cross(
     layer: Layer = LAYER.MK,
     text: str = '1'
 ) -> gf.Component:
+    """Return a hollow cross alignment marker with a text label.
+
+    Args:
+        outter_length: Outer cross length in microns.
+        outter_width: Outer cross width in microns.
+        inner_width: Subtracted inner cross width in microns.
+        layer: Marker layer.
+        text: Text label placed next to the marker.
+
+    Returns:
+        Component containing the marker geometry and label.
+    """
     c = gf.Component()
     # Larger Cross
     l_cross = c << gf.components.cross(length=outter_length, width=outter_width, layer=layer)

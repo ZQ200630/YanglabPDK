@@ -26,6 +26,9 @@ def coupler_bent(
         cross_section: cross_section.
         cross_section_inner: spec inner bend.
         cross_section_outer: spec outer bend.
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 

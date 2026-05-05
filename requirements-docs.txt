@@ -1,0 +1,9 @@
+# Documentation build dependencies for YanglabPDK.
+#
+# The real package environment should also provide gdsfactory.  The docs tools
+# can still generate text-only component indexes without gdsfactory, but preview
+# images and full API imports require the normal layout environment.
+sphinx>=5.0,<7.0
+myst-parser>=1.0,<2.0
+furo>=2023.5.20,<2024.0
+matplotlib>=3.7

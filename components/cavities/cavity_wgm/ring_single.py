@@ -31,6 +31,9 @@ def ring_single(
         radius: for the bend and coupler.
         length_x: ring coupler length.
         length_y: vertical straight length.
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 

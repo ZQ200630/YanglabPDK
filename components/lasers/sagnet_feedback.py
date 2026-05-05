@@ -52,6 +52,28 @@ def sagnet_feedback(
     # Miscellaneous
     buffer: float = 3.0,
 ):
+    """Return a Sagnac-feedback cavity connected to an asymmetric add-drop ring.
+
+    Args:
+        radius_loop: Sagnac loop bend radius in microns.
+        length_loop: Sagnac loop routing length in microns.
+        width: Main waveguide width in microns.
+        wg_width: Add-drop bus waveguide width in microns.
+        short_width: Narrow ring width in microns.
+        long_width: Wide ring width in microns.
+        width_taper: MMI taper width in microns.
+        length_taper: MMI taper length in microns.
+        length_mmi: MMI body length in microns.
+        width_mmi: MMI body width in microns.
+        gap_mmi: MMI output gap in microns.
+        radius: Ring radius in microns.
+        gap: Ring coupling gap in microns.
+        racetrack_len: Ring straight section length in microns.
+        buffer: Positive-resist buffer width in microns.
+
+    Returns:
+        Component with optical ports `o1` and `o2`.
+    """
     c = gf.Component()
     add_drop = c << ring_assymmetry_add_drop(radius=radius, short_width=short_width, gap=gap, width=width, wg_width=wg_width, long_width=long_width, racetrack_len=racetrack_len, buffer=buffer)
     loop = c << sagnac_loop(radius_loop=radius_loop, length_loop=length_loop, width=width, width_taper=width_taper, length_taper=length_taper, length_mmi=length_mmi, width_mmi=width_mmi, gap_mmi=gap_mmi, buffer=buffer)
@@ -98,6 +120,28 @@ def sagnet_feedback_1(
     # Miscellaneous
     buffer: float = 3.0,
 ):
+    """Return an alternate Sagnac-feedback ring routing.
+
+    Args:
+        radius_loop: Sagnac loop bend radius in microns.
+        length_loop: Sagnac loop routing length in microns.
+        width: Main waveguide width in microns.
+        wg_width: Add-drop bus waveguide width in microns.
+        short_width: Narrow ring width in microns.
+        long_width: Wide ring width in microns.
+        width_taper: MMI taper width in microns.
+        length_taper: MMI taper length in microns.
+        length_mmi: MMI body length in microns.
+        width_mmi: MMI body width in microns.
+        gap_mmi: MMI output gap in microns.
+        radius: Ring radius in microns.
+        gap: Ring coupling gap in microns.
+        racetrack_len: Ring straight section length in microns.
+        buffer: Positive-resist buffer width in microns.
+
+    Returns:
+        Component with optical ports `o1` and `o2`.
+    """
     c = gf.Component()
     add_drop = c << ring_assymmetry_add_drop(radius=radius, short_width=short_width, gap=gap, width=width, wg_width=wg_width, long_width=long_width, racetrack_len=racetrack_len, buffer=buffer)
     loop = c << sagnac_loop(radius_loop=radius_loop, length_loop=length_loop, width=width, width_taper=width_taper, length_taper=length_taper, length_mmi=length_mmi, width_mmi=width_mmi, gap_mmi=gap_mmi, buffer=buffer)
@@ -154,6 +198,35 @@ def sagnet_feedback_with_curve(# Loop parameters
     # Miscellaneous
     buffer: float = 3.0
     ):
+    """Return a Sagnac-feedback ring with curved output routing.
+
+    Args:
+        radius_loop: Sagnac loop bend radius in microns.
+        length_loop: Sagnac loop routing length in microns.
+        width: Main waveguide width in microns.
+        wg_width: Add-drop bus waveguide width in microns.
+        short_width: Narrow ring width in microns.
+        long_width: Wide ring width in microns.
+        width_taper: MMI taper width in microns.
+        length_taper: MMI taper length in microns.
+        length_mmi: MMI body length in microns.
+        width_mmi: MMI body width in microns.
+        gap_mmi: MMI output gap in microns.
+        radius: Ring radius in microns.
+        gap: Ring coupling gap in microns.
+        racetrack_len: Ring straight section length in microns.
+        radius_outbend: Output bend radius in microns.
+        angle_outbend: Output bend angle in degrees.
+        total_lens: Total routed length in microns.
+        offset: Horizontal routing offset in microns.
+        pos_edge_coupler: Edge coupler position in microns.
+        edge_coupler_len: Edge taper length in microns.
+        edge_coupler_width: Edge coupler tip width in microns.
+        buffer: Positive-resist buffer width in microns.
+
+    Returns:
+        Component with routed optical ports.
+    """
     c = gf.Component()
     feedback_comp = c << sagnet_feedback(radius_loop=radius_loop, length_loop=length_loop, width=width, wg_width=wg_width, short_width=short_width, long_width=long_width, width_taper=width_taper, length_taper=length_taper, length_mmi=length_mmi, width_mmi=width_mmi, gap_mmi=gap_mmi, radius=radius, gap=gap, racetrack_len=racetrack_len, buffer=buffer)
     bend1 = c << bend_circular(radius=radius_outbend, angle=-angle_outbend, width=width, buffer=buffer)
@@ -217,6 +290,38 @@ def sagnet_feedback_with_curve_micro_heater(# Loop parameters
     # Miscellaneous
     buffer: float = 3.0
     ):
+    """Return a curved Sagnac-feedback ring with a straight microheater.
+
+    Args:
+        radius_loop: Sagnac loop bend radius in microns.
+        length_loop: Sagnac loop routing length in microns.
+        width: Main waveguide width in microns.
+        wg_width: Add-drop bus waveguide width in microns.
+        short_width: Narrow ring width in microns.
+        long_width: Wide ring width in microns.
+        width_taper: MMI taper width in microns.
+        length_taper: MMI taper length in microns.
+        length_mmi: MMI body length in microns.
+        width_mmi: MMI body width in microns.
+        gap_mmi: MMI output gap in microns.
+        radius: Ring radius in microns.
+        gap: Ring coupling gap in microns.
+        racetrack_len: Ring straight section length in microns.
+        radius_outbend: Output bend radius in microns.
+        angle_outbend: Output bend angle in degrees.
+        total_lens: Total routed length in microns.
+        offset: Horizontal routing offset in microns.
+        pos_edge_coupler: Edge coupler position in microns.
+        edge_coupler_len: Edge taper length in microns.
+        edge_coupler_width: Edge coupler tip width in microns.
+        heater_length: Heater length in microns.
+        heater_width: Heater width in microns.
+        heater_offset: Heater offset from the output routing in microns.
+        buffer: Positive-resist buffer width in microns.
+
+    Returns:
+        Component with optical ports and heater metal geometry.
+    """
     c = gf.Component()
     feedback_comp = c << sagnet_feedback(radius_loop=radius_loop, length_loop=length_loop, width=width, wg_width=wg_width, short_width=short_width, long_width=long_width, width_taper=width_taper, length_taper=length_taper, length_mmi=length_mmi, width_mmi=width_mmi, gap_mmi=gap_mmi, radius=radius, gap=gap, racetrack_len=racetrack_len, buffer=buffer)
     bend1 = c << bend_circular(radius=radius_outbend, angle=-angle_outbend, width=width, buffer=buffer)

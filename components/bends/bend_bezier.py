@@ -25,6 +25,9 @@ def bend_bezier(
         end_angle: optional end angle in deg.
         width: width to use. Defaults to cross_section.width.
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
     """
     return Utils.pos_neg_seperate(gf.components.bezier(control_points=control_points, npoints=npoints, with_manhattan_facing_angles=with_manhattan_facing_angles,start_angle=start_angle, end_angle=end_angle, cross_section=Sections.pos_neg_resist(width=width, buffer=buffer)))
 

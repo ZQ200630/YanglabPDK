@@ -19,6 +19,9 @@ def coupler_asymmetric(
         dx: bend length in x direction.
         width: waveguide width in um.
         buffer: buffer.
+    
+    Returns:
+        Component with the generated layout.
         
 
     .. code::

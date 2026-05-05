@@ -20,6 +20,9 @@ def coupler_straight_asymmetric(
         gap: between straights.
         width_top: of top straight.
         width_bot: of bottom straight.
+    
+    Returns:
+        Component with the generated layout.
     """
     c = gf.Component()
 

@@ -10,6 +10,17 @@ from gdsfactory.snap import snap_to_grid
 
 @gf.cell
 def half_ring_asymmetry(radius=100, short_width=0.6, long_width=2, buffer=3):
+    """Return one half of an asymmetric-width ring.
+
+    Args:
+        radius: Centerline radius in microns.
+        short_width: Narrow side width in microns.
+        long_width: Wide side width in microns.
+        buffer: Positive-resist buffer width in microns.
+
+    Returns:
+        Component with optical ports `o1` and `o2`.
+    """
     c = gf.Component()
     circle_outer = c << gf.components.circle(radius=radius + long_width/2 + buffer, layer=LAYER.PR, angle_resolution=0.1)
     circle_inner = c << gf.components.circle(radius=radius - long_width/2 - buffer, layer=LAYER.PR, angle_resolution=0.1)
@@ -64,6 +75,18 @@ def half_ring_asymmetry(radius=100, short_width=0.6, long_width=2, buffer=3):
 
 @gf.cell
 def ring_asymmetry_only(radius=100, short_width=0.6, long_width=2, racetrack_len=200, buffer=3):
+    """Return an asymmetric racetrack ring without bus waveguides.
+
+    Args:
+        radius: Bend radius in microns.
+        short_width: Narrow ring width in microns.
+        long_width: Wide ring width in microns.
+        racetrack_len: Straight section length in microns.
+        buffer: Positive-resist buffer width in microns.
+
+    Returns:
+        Component with optical ports `o1` and `o2`.
+    """
     c = gf.Component()
     half1 = half_ring_asymmetry(radius=radius, short_width=short_width, long_width=long_width, buffer=buffer)
     half2 = half_ring_asymmetry(radius=radius, short_width=short_width, long_width=long_width, buffer=buffer)
@@ -95,6 +118,26 @@ def ring_asymmetry_only_w_heater(radius=100, short_width=0.6, long_width=2, buff
     tooth_len: float = 3.0,         # tooth extends outward from arc outer edge (um)
     tooth_w: float = 1.2           # tooth width along tangent direction (um)):
 ):
+    """Return an asymmetric ring with integrated arc microheater.
+
+    Args:
+        radius: Bend radius in microns.
+        short_width: Narrow ring width in microns.
+        long_width: Wide ring width in microns.
+        buffer: Positive-resist buffer width in microns.
+        w: Heater width in microns.
+        theta0: Heater start angle in degrees.
+        theta1: Heater end angle in degrees.
+        lead_len: Straight heater lead length in microns.
+        elef_taper_len: Electrical taper length in microns.
+        pad_size: Electrical pad size `(x, y)` in microns.
+        add_teeth: Whether to add meander teeth along the heater.
+        tooth_len: Tooth length in microns.
+        tooth_w: Tooth width in microns.
+
+    Returns:
+        Component with optical and electrical ports.
+    """
     c = gf.Component()
     half1 = half_ring_asymmetry(radius=radius, short_width=short_width, long_width=long_width, buffer=buffer)
     half2 = half_ring_asymmetry(radius=radius, short_width=short_width, long_width=long_width, buffer=buffer)
@@ -117,6 +160,20 @@ def ring_asymmetry_only_w_heater(radius=100, short_width=0.6, long_width=2, buff
 
 @gf.cell
 def ring_asymmetry(radius=100, short_width=0.6, gap=0.6, wg_width=1, long_width=2, racetrack_len=200, buffer=3):
+    """Return an asymmetric racetrack ring coupled to one bus waveguide.
+
+    Args:
+        radius: Bend radius in microns.
+        short_width: Narrow ring width in microns.
+        gap: Ring-to-waveguide gap in microns.
+        wg_width: Bus waveguide width in microns.
+        long_width: Wide ring width in microns.
+        racetrack_len: Straight section length in microns.
+        buffer: Positive-resist buffer width in microns.
+
+    Returns:
+        Component with bus waveguide ports `o1` and `o2`.
+    """
     c = gf.Component()
     ring = c << ring_asymmetry_only(radius=radius, short_width=short_width, long_width=long_width, racetrack_len=racetrack_len, buffer=buffer)
     bus_wg = c << straight(length=2*radius, width=wg_width, buffer=buffer)
@@ -128,6 +185,21 @@ def ring_asymmetry(radius=100, short_width=0.6, gap=0.6, wg_width=1, long_width=
 
 @gf.cell
 def ring_assymmetry_add_drop(radius=100, short_width=0.6, gap=0.6, wg_width=0.8, width=1, long_width=2, racetrack_len=200, buffer=3):
+    """Return an asymmetric add-drop racetrack ring.
+
+    Args:
+        radius: Bend radius in microns.
+        short_width: Narrow ring width in microns.
+        gap: Coupling gap in microns.
+        wg_width: Narrow bus waveguide width in microns.
+        width: Access waveguide width in microns.
+        long_width: Wide ring width in microns.
+        racetrack_len: Straight ring section length in microns.
+        buffer: Positive-resist buffer width in microns.
+
+    Returns:
+        Component with four optical ports `o1`, `o2`, `o3`, and `o4`.
+    """
     c = gf.Component()
     ring = c << ring_asymmetry_only(radius=radius, short_width=short_width, long_width=long_width, racetrack_len=racetrack_len, buffer=buffer)
     bus_wg_comp = gf.Component()
@@ -165,6 +237,29 @@ def ring_assymmetry_add_drop_w_heater(radius=100, short_width=0.6, gap=0.6, wg_w
     tooth_len: float = 3.0,         # tooth extends outward from arc outer edge (um)
     tooth_w: float = 1.2           # tooth width along tangent direction (um)):
     ):
+    """Return an asymmetric add-drop ring with an integrated microheater.
+
+    Args:
+        radius: Bend radius in microns.
+        short_width: Narrow ring width in microns.
+        gap: Coupling gap in microns.
+        wg_width: Narrow bus waveguide width in microns.
+        width: Access waveguide width in microns.
+        long_width: Wide ring width in microns.
+        buffer: Positive-resist buffer width in microns.
+        w: Heater width in microns.
+        theta0: Heater start angle in degrees.
+        theta1: Heater end angle in degrees.
+        lead_len: Straight heater lead length in microns.
+        elef_taper_len: Electrical taper length in microns.
+        pad_size: Electrical pad size `(x, y)` in microns.
+        add_teeth: Whether to add meander teeth along the heater.
+        tooth_len: Tooth length in microns.
+        tooth_w: Tooth width in microns.
+
+    Returns:
+        Component with four optical ports and electrical heater ports.
+    """
     c = gf.Component()
     ring = c << ring_asymmetry_only_w_heater(radius=radius, short_width=short_width, long_width=long_width, buffer=buffer, w=w, theta0=theta0, theta1=theta1, lead_len=lead_len, elef_taper_len=elef_taper_len, pad_size=pad_size, add_teeth=add_teeth, tooth_len=tooth_len, tooth_w=tooth_w)
     bus_wg_comp = gf.Component()

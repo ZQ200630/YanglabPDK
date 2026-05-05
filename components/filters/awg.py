@@ -47,6 +47,16 @@ def calculate_arc_parameters(L_dist, L_total, theta_deg):
     # L_dist = 80.936
     # L_total = 97.51008600788649
 
+    """Create a calculate arc parameters component.
+
+    Args:
+        L_dist: L_dist value.
+        L_total: L_total value.
+        theta_deg: theta_deg value.
+
+    Returns:
+        Tuple containing the arc radius, chord length, and y offset.
+    """
     theta = theta_deg
     theta_rad = np.deg2rad(theta)
 
@@ -56,6 +66,15 @@ def calculate_arc_parameters(L_dist, L_total, theta_deg):
 
 @gf.cell
 def awg():
+    """Return an arrayed waveguide grating layout.
+
+    Args:
+        None.
+
+    Returns:
+        Component containing input waveguide, Rowland regions, waveguide array,
+        and output routing.
+    """
     c = gf.Component()
     # Define some parameters, which can be changed
     semi_circle_to_center_dist = 150

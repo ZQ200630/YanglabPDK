@@ -18,6 +18,9 @@ def coupler_straight(
         gap: between straights.
         width: of the straights.
         buffer: buffer.
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 
@@ -49,6 +52,9 @@ def coupler(
         cross_section: spec (CrossSection, string or dict).
         allow_min_radius_violation: if True does not check for min bend radius.
         bend: input and output sbend components.
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 

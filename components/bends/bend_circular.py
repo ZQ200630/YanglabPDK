@@ -17,6 +17,9 @@ def bend_circular(
         angle: angle of arc (degrees).
         width: width to use. Defaults to cross_section.width.
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
     """
     c = Utils.pos_neg_seperate(gf.components.bend_circular(radius=radius, angle=angle, cross_section=Sections.pos_neg_resist(width=width, buffer=buffer)))
     c.locked = False

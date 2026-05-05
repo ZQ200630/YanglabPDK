@@ -8,7 +8,7 @@ from YanglabPDK.components.waveguides.straight import straight
 @gf.cell
 def coupler90euler(
     gap: float = 0.2,
-    radius: float | None = None,
+    radius: float = 100.0,
     p: float = 0.5,
     width: float = 1,
     buffer: float = 3
@@ -22,6 +22,9 @@ def coupler90euler(
         straight: for straight.
         width: um.
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 
@@ -52,7 +55,7 @@ def coupler90euler(
 @gf.cell
 def coupler90circular(
     gap: float = 0.2,
-    radius: float | None = None,
+    radius: float = 100.0,
     width: float = 1,
     buffer: float = 3
 ) -> gf.Component:
@@ -64,6 +67,9 @@ def coupler90circular(
         straight: for straight.
         width: um.
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 
@@ -94,7 +100,7 @@ def coupler90circular(
 @gf.cell
 def coupler90circular_asymmetric(
     gap: float = 0.2,
-    radius: float | None = None,
+    radius: float = 100.0,
     width_wg: float = 1,
     width_bend: float = 1,
     buffer: float = 3
@@ -108,6 +114,9 @@ def coupler90circular_asymmetric(
         width_wg: width of bus waveguide um.
         width_bend: width of bend um.
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
 
     .. code::
 

@@ -20,6 +20,9 @@ def coupler90bend(
         width_outter: outter bend width um.
         width_inner: inner bend width um.
         buffer: buffer width for positive tone resist (um)
+    
+    Returns:
+        Component with the generated layout.
 
 
     .. code::

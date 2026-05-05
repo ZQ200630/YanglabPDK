@@ -7,6 +7,15 @@ from YanglabPDK.components.filters.dbr import dbr
 
 @gf.cell
 def cavity_fp(dbr=dbr(w1=1, w2=0.5, n=20), coupler=coupler(dy=8, dx=20)):
+    """Return a Fabry-Perot cavity assembled from DBR and coupler cells.
+
+    Args:
+        dbr: DBR mirror component used in the cavity.
+        coupler: Coupler component connected to the cavity.
+
+    Returns:
+        Component containing the assembled Fabry-Perot cavity.
+    """
     c = gf.Component()
     c.component = dbr
     cr = c << coupler

@@ -26,6 +26,9 @@ def mmi1x2(
         width_mmi: in y direction.
         gap_mmi:  gap between tapered wg.
         buffer: Buffer width for positive tone resist
+    
+    Returns:
+        Component with the generated layout.
 
 
     .. code::

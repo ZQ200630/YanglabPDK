@@ -37,6 +37,9 @@ def mmi2x2(
         width_mmi: in y direction.
         gap_mmi: (width_taper + gap between tapered wg)/2.
         buffer: buffer around the component.
+    
+    Returns:
+        Component with the generated layout.
 
 
     .. code::

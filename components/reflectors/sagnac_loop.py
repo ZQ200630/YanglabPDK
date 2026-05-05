@@ -31,6 +31,22 @@ def sagnac_loop(
     width_mmi: float = 6.024,
     gap_mmi: float = 0.675,
     buffer: float = 3.0):
+    """Return a Sagnac loop reflector based on a 1x2 MMI.
+
+    Args:
+        radius_loop: Radius of the loop bend in microns.
+        length_loop: S-bend routing length in microns.
+        width: Waveguide width in microns.
+        width_taper: MMI taper width in microns.
+        length_taper: MMI taper length in microns.
+        length_mmi: MMI body length in microns.
+        width_mmi: MMI body width in microns.
+        gap_mmi: MMI output gap in microns.
+        buffer: Positive-resist buffer width in microns.
+
+    Returns:
+        Component with one optical input port `o1`.
+    """
     c = gf.Component()
     mmi = c << mmi1x2(width=width, width_taper=width_taper, length_taper=length_taper, length_mmi=length_mmi, width_mmi=width_mmi, gap_mmi=gap_mmi, buffer=buffer)
     bend_cir = c << bend_circular(radius=radius_loop, angle=180, width=width, buffer=buffer)

@@ -37,6 +37,9 @@ def ring_single_pulley(
         cross_section_inner: spec inner bend.
         cross_section_outer: spec outer bend.
         kwargs: cross_section settings.
+    
+    Returns:
+        Component with the generated layout.
     """
     c = gf.Component()
 

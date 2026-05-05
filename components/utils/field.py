@@ -7,7 +7,21 @@ from YanglabPDK.components.utils.mark import cross
 from functools import partial
 
 
-def die_marker_field(field_size=1000, die_size=(10000, 10000), mark_pair_num=3, calipers=None, expose_marker_list=[]):
+@gf.cell
+def die_marker_field(field_size=1000, die_size=(10000, 10000), mark_pair_num=3, calipers=None, expose_marker_list=None):
+    """Return a die field grid with alignment markers and anchors.
+
+    Args:
+        field_size: E-beam/write field size in microns.
+        die_size: Die size `(width, height)` in microns.
+        mark_pair_num: Number of marker pairs to place around the die.
+        calipers: Optional caliper component to place near the die edge.
+        expose_marker_list: Marker indices that should receive expose windows.
+
+    Returns:
+        Component containing field boxes, markers, anchors, and optional calipers.
+    """
+    expose_marker_list = expose_marker_list or []
     LUT = {
         # Left Top, Left Bottom, Right Top, Right Bottom
         0: ((0, 0), (0, 0), (0, 0), (0, 0)),
@@ -95,6 +109,9 @@ def dicing_lane(size=(6500, 14000), orientation='X') -> gf.Component:
     The function places four rectangles (dicing marks) on the left, right, top, and bottom edges
     of the die area, using the CUT layer defined in LAYER.CUT. These marks are typically used
     to guide wafer dicing after fabrication.
+    
+    Returns:
+        Component with the generated layout.
     """
     if orientation not in ['X', 'Y']:
         raise ValueError("Orientation must be 'X' or 'Y'")

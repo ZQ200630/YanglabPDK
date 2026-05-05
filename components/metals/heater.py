@@ -15,6 +15,16 @@ def arc_meander_points_one_side(
     - inner/outer radii differ by tooth_len
     - stop at last theta_k < theta_end (no need to hit exactly)
     Returns Nx2 points.
+
+    Args:
+        R: Arc centerline radius.
+        theta_start: Start angle in radians.
+        theta_end: End angle in radians.
+        tooth_w: Tooth width along the arc direction.
+        tooth_len: Tooth radial length.
+    
+    Returns:
+        Array of points describing one side of the arc meander.
     """
     dtheta = tooth_w / max(R, 1e-12)
 
@@ -71,6 +81,14 @@ def arc_meander_points_one_side(
     return np.asarray(pts, float)
 
 def mirror_points_y(points: np.ndarray) -> np.ndarray:
+    """Mirror an array of points across the Y axis.
+
+    Args:
+        points: Point array with x/y coordinates.
+
+    Returns:
+        Mirrored point array.
+    """
     pts = np.asarray(points, float).copy()
     pts[:, 0] *= -1.0
     return pts
@@ -94,6 +112,23 @@ def microheater_arc_with_teeth(
     tooth_len: float = 3.0,         # tooth extends outward from arc outer edge (um)
     tooth_w: float = 1.2,           # tooth width along tangent direction (um)
 ) -> gf.Component:
+    """Return an arc-shaped microheater with pads and optional meander teeth.
+
+    Args:
+        R: Heater centerline radius in microns.
+        w: Heater trace width in microns.
+        theta0: Start angle in degrees.
+        theta1: End angle in degrees.
+        lead_len: Straight lead length in microns.
+        elef_taper_len: Electrical taper length in microns.
+        pad_size: Electrical pad size `(x, y)` in microns.
+        add_teeth: Whether to add meander teeth along the arc.
+        tooth_len: Tooth length in microns.
+        tooth_w: Tooth width along the tangent direction in microns.
+
+    Returns:
+        Component with heater metal, pads, and electrical ports.
+    """
     c = gf.Component()
     if add_teeth:
         # Define left arc using points
